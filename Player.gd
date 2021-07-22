@@ -19,7 +19,7 @@ const MAX_SLOPE_ANGLE = 40
 var camera
 var rotation_helper
 
-var MOUSE_SENSITIVITY = 0.1
+var MOUSE_SENSITIVITY = 0.5
 # Place before _ready
 var animation_manager
 
@@ -195,4 +195,37 @@ func _input(event):
 		rotation_helper.rotation_degrees = camera_rot
 
 func process_changing_weapons(delta):
-	pass
+	if changing_weapon == true:
+
+		var weapon_unequipped = false
+		var current_weapon = weapons[current_weapon_name]
+
+		if current_weapon == null:
+			weapon_unequipped = true
+		else:
+			if current_weapon.is_weapon_enabled == true:
+				weapon_unequipped = current_weapon.unequip_weapon()
+			else:
+				weapon_unequipped = true
+
+		if weapon_unequipped == true:
+
+			var weapon_equipped = false
+			var weapon_to_equip = weapons[changing_weapon_name]
+
+			if weapon_to_equip == null:
+				weapon_equipped = true
+			else:
+				if weapon_to_equip.is_weapon_enabled == false:
+					weapon_equipped = weapon_to_equip.equip_weapon()
+				else:
+					weapon_equipped = true
+
+			if weapon_equipped == true:
+				changing_weapon = false
+				current_weapon_name = changing_weapon_name
+				changing_weapon_name = ""
+
+func fire_bullet():
+	if changing_weapon == true:
+		return
