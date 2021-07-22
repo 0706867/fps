@@ -64,8 +64,43 @@ func _ready():
 func _physics_process(delta):
 	process_input(delta)
 	process_movement(delta)
+	process_changing_weapons(delta)
 
 func process_input(delta):
+# Changing weapons.
+	var weapon_change_number = WEAPON_NAME_TO_NUMBER[current_weapon_name]
+
+	if Input.is_key_pressed(KEY_1):
+		weapon_change_number = 0
+	if Input.is_key_pressed(KEY_2):
+		weapon_change_number = 1
+	if Input.is_key_pressed(KEY_3):
+		weapon_change_number = 2
+	if Input.is_key_pressed(KEY_4):
+		weapon_change_number = 3
+
+	if Input.is_action_just_pressed("shift_weapon_positive"):
+		weapon_change_number += 1
+	if Input.is_action_just_pressed("shift_weapon_negative"):
+		weapon_change_number -= 1
+
+	weapon_change_number = clamp(weapon_change_number, 0, WEAPON_NUMBER_TO_NAME.size() - 1)
+
+	if changing_weapon == false:
+		if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
+			changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
+			changing_weapon = true
+# ----------------------------------
+
+# ----------------------------------
+# Firing the weapons
+	if Input.is_action_pressed("fire"):
+		if changing_weapon == false:
+			var current_weapon = weapons[current_weapon_name]
+			if current_weapon != null:
+				if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME:
+					animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME)
+# ----------------------------------
 # ----------------------------------
 # Sprinting
 	if Input.is_action_pressed("movement_sprint"):
@@ -158,3 +193,6 @@ func _input(event):
 		var camera_rot = rotation_helper.rotation_degrees
 		camera_rot.x = clamp(camera_rot.x, -70, 70)
 		rotation_helper.rotation_degrees = camera_rot
+
+func process_changing_weapons(delta):
+	pass
