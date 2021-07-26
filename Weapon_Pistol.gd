@@ -1,10 +1,14 @@
 extends Spatial
 
-const DAMAGE = 15
-
+const DAMAGE = 30
+var ammo_in_weapon = 10
+var spare_ammo = 20
+const AMMO_IN_MAG = 10
 const IDLE_ANIM_NAME = "Pistol_idle"
 const FIRE_ANIM_NAME = "Pistol_fire"
-
+const CAN_RELOAD = true
+const CAN_REFILL = true
+const RELOADING_ANIM_NAME = "Pistol_reload"
 var is_weapon_enabled = false
 
 var bullet_scene = preload("Bullet_Scene.tscn")
@@ -21,8 +25,8 @@ func fire_weapon():
 
 	clone.global_transform = self.global_transform
 	clone.scale = Vector3(40, 40, 40)
-	clone.BULLET_DAMAGE = DAMAGE
-
+	clone.BULLET_DAMAGE = DAMAGE 
+	ammo_in_weapon -= 1
 func equip_weapon():
 	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
 		is_weapon_enabled = true
@@ -43,3 +47,28 @@ func unequip_weapon():
 		return true
 	else:
 		return false
+
+func reload_weapon():
+	var can_reload = false
+
+	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
+		can_reload = true
+
+	if spare_ammo <= 0 or ammo_in_weapon == AMMO_IN_MAG:
+		can_reload = false
+
+	if can_reload == true:
+		var ammo_needed = AMMO_IN_MAG - ammo_in_weapon
+
+		if spare_ammo >= ammo_needed:
+			spare_ammo -= ammo_needed
+			ammo_in_weapon = AMMO_IN_MAG
+		else:
+			ammo_in_weapon += spare_ammo
+			spare_ammo = 0
+
+		player_node.animation_manager.set_animation(RELOADING_ANIM_NAME)
+
+		return true
+
+	return false

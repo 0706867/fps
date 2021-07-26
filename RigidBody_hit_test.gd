@@ -1,6 +1,6 @@
 extends RigidBody
 
-const BASE_BULLET_BOOST = 9
+const BASE_BULLET_BOOST = 9;
 
 func _ready():
 	pass

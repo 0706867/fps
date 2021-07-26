@@ -8,30 +8,22 @@ const ACCEL = 4.5
 const MAX_SPRINT_SPEED = 70
 const SPRINT_ACCEL = 18
 var is_sprinting = false
-
+var reloading_weapon = false
 var flashlight
-
 var dir = Vector3()
-
 const DEACCEL= 16
 const MAX_SLOPE_ANGLE = 40
-
 var camera
 var rotation_helper
-
 var MOUSE_SENSITIVITY = 0.5
-# Place before _ready
 var animation_manager
-
 var current_weapon_name = "UNARMED"
 var weapons = {"UNARMED":null, "KNIFE":null, "PISTOL":null, "RIFLE":null}
 const WEAPON_NUMBER_TO_NAME = {0:"UNARMED", 1:"KNIFE", 2:"PISTOL", 3:"RIFLE"}
 const WEAPON_NAME_TO_NUMBER = {"UNARMED":0, "KNIFE":1, "PISTOL":2, "RIFLE":3}
 var changing_weapon = false
 var changing_weapon_name = "UNARMED"
-
 var health = 100
-
 var UI_status_label
 
 func _ready():
@@ -61,6 +53,7 @@ func _ready():
 
 	UI_status_label = $HUD/Panel/Gun_label
 	flashlight = $Rotation_Helper/Flashlight
+
 func _physics_process(delta):
 	process_input(delta)
 	process_movement(delta)
@@ -92,14 +85,14 @@ func process_input(delta):
 			changing_weapon = true
 # ----------------------------------
 
-# ----------------------------------
 # Firing the weapons
 	if Input.is_action_pressed("fire"):
 		if changing_weapon == false:
 			var current_weapon = weapons[current_weapon_name]
 			if current_weapon != null:
-				if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME:
-					animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME)
+				if current_weapon.ammo_in_weapon > 0:
+					if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME:
+						animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME)
 # ----------------------------------
 # ----------------------------------
 # Sprinting
@@ -154,7 +147,6 @@ func process_input(delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	# ----------------------------------
 
 func process_movement(delta):
 	dir.y = 0
@@ -229,3 +221,12 @@ func process_changing_weapons(delta):
 func fire_bullet():
 	if changing_weapon == true:
 		return
+	weapons[current_weapon_name].fire_weapon()
+
+func process_UI(delta):
+	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
+		UI_status_label.text = "HEALTH: " + str(health)
+	else:
+		var current_weapon = weapons[current_weapon_name]
+		UI_status_label.text = "HEALTH: " + str(health) + \
+				"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo)
