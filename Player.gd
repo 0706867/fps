@@ -1,30 +1,30 @@
 extends KinematicBody
 
-const GRAVITY = -24.8
-var vel = Vector3()
-const MAX_SPEED = 20
-const JUMP_SPEED = 18
-const ACCEL = 4.5
-const MAX_SPRINT_SPEED = 70
-const SPRINT_ACCEL = 18
-var is_sprinting = false
-var reloading_weapon = false
-var flashlight
-var dir = Vector3()
-const DEACCEL= 16
-const MAX_SLOPE_ANGLE = 40
-var camera
-var rotation_helper
-var MOUSE_SENSITIVITY = 0.5
-var animation_manager
-var current_weapon_name = "UNARMED"
-var weapons = {"UNARMED":null, "KNIFE":null, "PISTOL":null, "RIFLE":null}
-const WEAPON_NUMBER_TO_NAME = {0:"UNARMED", 1:"KNIFE", 2:"PISTOL", 3:"RIFLE"}
-const WEAPON_NAME_TO_NUMBER = {"UNARMED":0, "KNIFE":1, "PISTOL":2, "RIFLE":3}
-var changing_weapon = false
-var changing_weapon_name = "UNARMED"
-var health = 100
-var UI_status_label
+const GRAVITY = -24.8                                                            #how hard the player is pulled to the ground
+var vel = Vector3()                                                              #player velocity
+const MAX_SPEED = 20                                                             #maximum speed the player can travel
+const JUMP_SPEED = 18                                                            #speed when jumping
+const ACCEL = 4.5                                                                #player's speed of acceleration
+const MAX_SPRINT_SPEED = 70                                                      #maximum speed while sprinting
+const SPRINT_ACCEL = 18                                                          #acceleration when spriniting
+var is_sprinting = false                                                         #is the player sprinting?
+var reloading_weapon = false                                                     #is the player reloading a weapon?
+var flashlight                                                                   #placeholder for a flashlight
+var dir = Vector3()                                                              #direction of an object in a (vector)3 dimentional space
+const DEACCEL= 16                                                                # rate of deceleration
+const MAX_SLOPE_ANGLE = 40                                                       #maximum angle the player can climb
+var camera                                                                       #PH for camera
+var rotation_helper                                                              #helps the player rotate locally without moving the global body
+var MOUSE_SENSITIVITY = 0.5                                                      #sensitivity of the camera for looking around
+var animation_manager                                                            #manages animations
+var current_weapon_name = "UNARMED"                                              #starting weapon
+var weapons = {"UNARMED":null, "KNIFE":null, "PISTOL":null, "RIFLE":null}        #all the weapons
+const WEAPON_NUMBER_TO_NAME = {0:"UNARMED", 1:"KNIFE", 2:"PISTOL", 3:"RIFLE"}    #assigns weapons to numbers so the player can change weapons by using numbers
+const WEAPON_NAME_TO_NUMBER = {"UNARMED":0, "KNIFE":1, "PISTOL":2, "RIFLE":3}    #same as above
+var changing_weapon = false                                                      #is the player changing weapons
+var changing_weapon_name = "UNARMED"                                             #name of the weapon changed to
+var health = 100                                                                 # player health
+var UI_status_label                                                              #is the UI displaying?
 
 func _ready():
 	camera = $Rotation_Helper/Camera
