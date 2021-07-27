@@ -27,6 +27,7 @@ func fire_weapon():
 	clone.scale = Vector3(40, 40, 40)
 	clone.BULLET_DAMAGE = DAMAGE 
 	ammo_in_weapon -= 1
+
 func equip_weapon():
 	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
 		is_weapon_enabled = true
