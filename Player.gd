@@ -25,8 +25,14 @@ var changing_weapon = false                                                     
 var changing_weapon_name = "UNARMED"                                             #name of the weapon changed to
 var health = 100                                                                 # player health
 var UI_status_label                                                              #is the UI displaying?
+var simple_audio_player = preload("res://Simple_Audio_Player.tscn")
+var JOYPAD_SENSITIVITY = 2
+const JOYPAD_DEADZONE = 0.15
+var mouse_scroll_value = 0
+const MOUSE_SENSITIVITY_SCROLL_WHEEL = 0.08
+const MAX_HEALTH = 150
 
-func _ready():
+func _ready():                                                                   #function called when the project starts
 	camera = $Rotation_Helper/Camera
 	rotation_helper = $Rotation_Helper
 
@@ -54,14 +60,15 @@ func _ready():
 	UI_status_label = $HUD/Panel/Gun_label
 	flashlight = $Rotation_Helper/Flashlight
 
-func _physics_process(delta):
+func _physics_process(delta):                                                    #handles physics and other processes
 	process_input(delta)
 	process_movement(delta)
 	process_changing_weapons(delta)
 	process_reloading(delta)
 	process_UI(delta)
+#	process_view_input(delta)
 
-func process_input(delta):
+func process_input(delta):                                                       #processes input types
 # Changing weapons.
 	var weapon_change_number = WEAPON_NAME_TO_NUMBER[current_weapon_name]
 
@@ -89,6 +96,7 @@ func process_input(delta):
 		if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
 			changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
 			changing_weapon = true
+			mouse_scroll_value = weapon_change_number
 # ----------------------------------
 # Firing the weapons
 	if Input.is_action_pressed("fire"):
@@ -115,8 +123,7 @@ func process_input(delta):
 		else:
 			flashlight.show()
 # ----------------------------------
-	# ----------------------------------
-	# Walking
+# Walking
 	dir = Vector3()
 	var cam_xform = camera.get_global_transform()
 
@@ -130,29 +137,61 @@ func process_input(delta):
 		input_movement_vector.x -= 1
 	if Input.is_action_pressed("movement_right"):
 		input_movement_vector.x += 1
+	# Add joypad input if one is present == XBOX
+	if Input.get_connected_joypads().size() > 0:
 
+		var joypad_vec = Vector2(0, 0)
+
+		if OS.get_name() == "Windows":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 0), -Input.get_joy_axis(0, 1))
+		elif OS.get_name() == "X11":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 1), Input.get_joy_axis(0, 2))
+		elif OS.get_name() == "OSX":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 1), Input.get_joy_axis(0, 2))
+
+		if joypad_vec.length() < JOYPAD_DEADZONE:
+			joypad_vec = Vector2(0, 0)
+		else:
+			joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
+		input_movement_vector += joypad_vec
+
+# Add joypad input if one is present == PS
+	if Input.get_connected_joypads().size() > 0:
+
+		var joypad_vec = Vector2(0, 0)
+
+		if OS.get_name() == "Windows" or OS.get_name() == "X11":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 0), -Input.get_joy_axis(0, 1))
+		elif OS.get_name() == "OSX":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 1), Input.get_joy_axis(0, 2))
+
+		if joypad_vec.length() < JOYPAD_DEADZONE:
+			joypad_vec = Vector2(0, 0)
+		else:
+			joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
+
+		input_movement_vector += joypad_vec
+	
 	input_movement_vector = input_movement_vector.normalized()
 
-	# Basis vectors are already normalized.
+
+
+# Basis vectors are already normalized.
 	dir += -cam_xform.basis.z * input_movement_vector.y
 	dir += cam_xform.basis.x * input_movement_vector.x
-	# ----------------------------------
-
-	# ----------------------------------
-	# Jumping
+# ----------------------------------
+# Jumping
 	if is_on_floor():
 		if Input.is_action_just_pressed("movement_jump"):
 			vel.y = JUMP_SPEED
-	# ----------------------------------
-
-	# ----------------------------------
+# ----------------------------------
 	# Capturing/Freeing the cursor
 	if Input.is_action_just_pressed("ui_cancel"):
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
+# ----------------------------------
 # Reloading
 	if reloading_weapon == false:
 		if changing_weapon == false:
@@ -169,9 +208,8 @@ func process_input(delta):
 									is_reloading = true
 						if is_reloading == false:
 							reloading_weapon = true
-# ----------------------------------
 
-func process_movement(delta):
+func process_movement(delta):                                                    #handles the movement / lets the player move
 	dir.y = 0
 	dir = dir.normalized()
 
@@ -200,7 +238,7 @@ func process_movement(delta):
 	vel.z = hvel.z
 	vel = move_and_slide(vel, Vector3(0, 1, 0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
 
-func _input(event):
+func _input(event):                                                              #lets the player use cursor when widow is not focused
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY))
 		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
@@ -209,9 +247,26 @@ func _input(event):
 		camera_rot.x = clamp(camera_rot.x, -70, 70)
 		rotation_helper.rotation_degrees = camera_rot
 
-func process_changing_weapons(delta):
-	if changing_weapon == true:
+	if event is InputEventMouseButton and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		if event.button_index == BUTTON_WHEEL_UP or event.button_index == BUTTON_WHEEL_DOWN:
+			if event.button_index == BUTTON_WHEEL_UP:
+				mouse_scroll_value += MOUSE_SENSITIVITY_SCROLL_WHEEL
+			elif event.button_index == BUTTON_WHEEL_DOWN:
+				mouse_scroll_value -= MOUSE_SENSITIVITY_SCROLL_WHEEL
 
+			mouse_scroll_value = clamp(mouse_scroll_value, 0, WEAPON_NUMBER_TO_NAME.size() - 1)
+
+			if changing_weapon == false:
+				if reloading_weapon == false:
+					var round_mouse_scroll_value = int(round(mouse_scroll_value))
+					if WEAPON_NUMBER_TO_NAME[round_mouse_scroll_value] != current_weapon_name:
+						changing_weapon_name = WEAPON_NUMBER_TO_NAME[round_mouse_scroll_value]
+						changing_weapon = true
+						mouse_scroll_value = round_mouse_scroll_value
+
+func process_changing_weapons(delta):                                            #lets teh player change weapons
+	if changing_weapon == true:
+	
 		var weapon_unequipped = false
 		var current_weapon = weapons[current_weapon_name]
 
@@ -241,12 +296,12 @@ func process_changing_weapons(delta):
 				current_weapon_name = changing_weapon_name
 				changing_weapon_name = ""
 
-func fire_bullet():
+func fire_bullet():                                                              #lets the player fire bullets
 	if changing_weapon == true:
 		return
 	weapons[current_weapon_name].fire_weapon()
 
-func process_UI(delta):
+func process_UI(delta):                                                          #controls UI for the player
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
 		UI_status_label.text = "HEALTH: " + str(health)
 	else:
@@ -254,9 +309,94 @@ func process_UI(delta):
 		UI_status_label.text = "HEALTH: " + str(health) + \
 				"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo)
 
-func process_reloading(delta):
+func process_reloading(delta):                                                   #lets the player reload
 	if reloading_weapon == true:
 		var current_weapon = weapons[current_weapon_name]
 		if current_weapon != null:
 			current_weapon.reload_weapon()
 		reloading_weapon = false
+
+func create_sound(sound_name, position=null):
+	var audio_clone = simple_audio_player.instance()
+	var scene_root = get_tree().root.get_children()[0]
+	scene_root.add_child(audio_clone)
+	audio_clone.play_sound(sound_name, position)
+
+
+# XBOX
+func process_view_input(delta):
+
+	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+		return
+
+	# NOTE: Until some bugs relating to captured mice are fixed, we cannot put the mouse view
+	# rotation code here. Once the bug(s) are fixed, code for mouse view rotation code will go here!
+
+	# ----------------------------------
+	# Joypad rotation
+
+	var joypad_vec = Vector2()
+	if Input.get_connected_joypads().size() > 0:
+
+		if OS.get_name() == "Windows":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 2), Input.get_joy_axis(0, 3))
+		elif OS.get_name() == "X11":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
+		elif OS.get_name() == "OSX":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
+
+		if joypad_vec.length() < JOYPAD_DEADZONE:
+			joypad_vec = Vector2(0, 0)
+		else:
+			joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
+
+		rotation_helper.rotate_x(deg2rad(joypad_vec.y * JOYPAD_SENSITIVITY))
+
+		rotate_y(deg2rad(joypad_vec.x * JOYPAD_SENSITIVITY * -1))
+
+		var camera_rot = rotation_helper.rotation_degrees
+		camera_rot.x = clamp(camera_rot.x, -70, 70)
+		rotation_helper.rotation_degrees = camera_rot
+	# ----------------------------------
+
+#PS
+#func process_view_input(delta):
+
+#	   if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+#		   return
+
+   # NOTE: Until some bugs relating to captured mice are fixed, we cannot put the mouse view
+   # rotation code here. Once the bug(s) are fixed, code for mouse view rotation code will go here!
+
+   # ----------------------------------
+   # Joypad rotation
+
+#	var joypad_vec = Vector2()
+#	if Input.get_connected_joypads().size() > 0:
+
+#	   if OS.get_name() == "Windows" or OS.get_name() == "X11":
+#		   joypad_vec = Vector2(Input.get_joy_axis(0, 2), Input.get_joy_axis(0, 3))
+#	   elif OS.get_name() == "OSX":
+#		   joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
+
+#	   if joypad_vec.length() < JOYPAD_DEADZONE:
+#		   joypad_vec = Vector2(0, 0)
+#	   else:
+#		   joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
+
+#	   rotation_helper.rotate_x(deg2rad(joypad_vec.y * JOYPAD_SENSITIVITY))
+
+#	   rotate_y(deg2rad(joypad_vec.x * JOYPAD_SENSITIVITY * -1))
+
+#	   var camera_rot = rotation_helper.rotation_degrees
+#	   camera_rot.x = clamp(camera_rot.x, -70, 70)
+#	   rotation_helper.rotation_degrees = camera_rot 
+   # ----------------------------------
+func add_health(additional_health):
+	health += additional_health
+	health = clamp(health, 0, MAX_HEALTH)
+
+func add_ammo(additional_ammo):
+	if (current_weapon_name != "UNARMED"):
+		if (weapons[current_weapon_name].CAN_REFILL == true):
+			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo
