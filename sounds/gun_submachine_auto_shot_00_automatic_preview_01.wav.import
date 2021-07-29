@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gun_submachine_auto_shot_00_automatic_preview_01.wav-325428da2bb19804f1880204138bc990.sample"
+
+[deps]
+
+source_file="res://sounds/gun_submachine_auto_shot_00_automatic_preview_01.wav"
+dest_files=[ "res://.import/gun_submachine_auto_shot_00_automatic_preview_01.wav-325428da2bb19804f1880204138bc990.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
