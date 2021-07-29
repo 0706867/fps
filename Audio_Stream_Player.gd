@@ -4,6 +4,7 @@ extends Spatial
 # You will need to provide your own sound files.
 var audio_pistol_shot = preload("res://sounds/gun_revolver_pistol_shot_04.wav")
 var audio_gun_cock = preload("res://sounds/gun_semi_auto_rifle_cock_02.wav")
+
 var audio_rifle_shot = preload("res://sounds/gun_rifle_sniper_shot_01.wav")
 
 var audio_node = null
