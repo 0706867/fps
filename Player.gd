@@ -400,10 +400,7 @@ func process_reloading(delta):                                                  
 		reloading_weapon = false
 
 func create_sound(sound_name, position=null):
-	var audio_clone = simple_audio_player.instance()
-	var scene_root = get_tree().root.get_children()[0]
-	scene_root.add_child(audio_clone)
-	audio_clone.play_sound(sound_name, position)
+	globals.play_sound(sound_name, false, position)
 
 
 # XBOX
