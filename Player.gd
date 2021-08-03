@@ -40,6 +40,10 @@ var grabbed_object = null
 const OBJECT_THROW_FORCE = 120
 const OBJECT_GRAB_DISTANCE = 7
 const OBJECT_GRAB_RAY_DISTANCE = 10
+const RESPAWN_TIME = 4
+var dead_time = 0
+var is_dead = false
+var globals
 
 func _ready():                                                                   #function called when the project starts
 	camera = $Rotation_Helper/Camera
@@ -68,15 +72,21 @@ func _ready():                                                                  
 
 	UI_status_label = $HUD/Panel/Gun_label
 	flashlight = $Rotation_Helper/Flashlight
+	globals = get_node("/root/Globals")
+	global_transform.origin = globals.get_respawn_position()
+
 
 func _physics_process(delta):                                                    #handles physics and other processes
-	process_input(delta)
-	process_movement(delta)
-	if grabbed_object == null:
+	if !is_dead:
+		process_input(delta)
+		process_view_input(delta)
+		process_movement(delta)
+	if (grabbed_object == null):
 		process_changing_weapons(delta)
 		process_reloading(delta)
 	process_UI(delta)
-	process_view_input(delta)
+	process_respawn(delta)
+
 
 func process_input(delta):                                                       #processes input types
 # Changing weapons.
@@ -244,7 +254,7 @@ func process_input(delta):                                                      
 
 # Grabbing and throwing objects
 
-	if Input.is_action_just_pressed("fire_grenade") and current_weapon_name == "UNARMED":
+	if Input.is_action_just_pressed("throw") and current_weapon_name == "UNARMED":
 		if grabbed_object == null:
 			var state = get_world().direct_space_state
 
@@ -329,6 +339,9 @@ func _input(event):                                                             
 						changing_weapon_name = WEAPON_NUMBER_TO_NAME[round_mouse_scroll_value]
 						changing_weapon = true
 						mouse_scroll_value = round_mouse_scroll_value
+
+	if is_dead:
+		return
 
 func process_changing_weapons(delta):                                            #lets teh player change weapons
 	if changing_weapon == true:
@@ -477,3 +490,58 @@ func add_grenade(additional_grenade):
 
 func bullet_hit(damage, bullet_hit_pos):
 	health -= damage
+
+func process_respawn(delta):
+
+	# If we've just died
+	if health <= 0 and !is_dead:
+		$Body_CollisionShape.disabled = true
+		$Feet_CollisionShape.disabled = true
+
+		changing_weapon = true
+		changing_weapon_name = "UNARMED"
+
+		$HUD/Death_Screen.visible = true
+
+		$HUD/Panel.visible = false
+		$HUD/Crosshair.visible = false
+
+		dead_time = RESPAWN_TIME
+		is_dead = true
+
+		if grabbed_object != null:
+			grabbed_object.mode = RigidBody.MODE_RIGID
+			grabbed_object.apply_impulse(Vector3(0, 0, 0), -camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE / 2)
+
+			grabbed_object.collision_layer = 1
+			grabbed_object.collision_mask = 1
+
+			grabbed_object = null
+
+	if is_dead:
+		dead_time -= delta
+
+		var dead_time_pretty = str(dead_time).left(3)
+		$HUD/Death_Screen/Label.text = "You died\n" + dead_time_pretty + " seconds till respawn"
+
+		if dead_time <= 0:
+			global_transform.origin = globals.get_respawn_position()
+
+			$Body_CollisionShape.disabled = false
+			$Feet_CollisionShape.disabled = false
+
+			$HUD/Death_Screen.visible = false
+
+			$HUD/Panel.visible = true
+			$HUD/Crosshair.visible = true
+
+			for weapon in weapons:
+				var weapon_node = weapons[weapon]
+				if weapon_node != null:
+					weapon_node.reset_weapon()
+
+			health = 100
+			grenade_amounts = {"Grenade":2, "Sticky Grenade":2}
+			current_grenade = "Grenade"
+
+			is_dead = false
