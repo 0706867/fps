@@ -9,10 +9,10 @@ const RESPAWN_TIME = 20
 var respawn_timer = 0
 
 var is_ready = false
-
+#same as AmmoPickup.gd, except "add health" function, instead of "add_ammo
 func _ready():
 
-	$Holder/Health_Pickup_Trigger.connect("body_entered", self, "trigger_body_entered")
+	$Holder/Health_Pickup_Trigger.connect("body_entered", self, "trigger_body_entered")#connects the node to the functions, when something collies it enables the trigger body function
 
 	is_ready = true
 
@@ -47,7 +47,7 @@ func kit_size_change_values(size, enable):
 		$Holder/Health_Kit_Small.visible = enable
 
 
-func trigger_body_entered(body):
+func trigger_body_entered(body):													#if collided body has "add health" function, add health depending on the kitsize.
 	if body.has_method("add_health"):
 		body.add_health(HEALTH_AMOUNTS[kit_size])
 		respawn_timer = RESPAWN_TIME
