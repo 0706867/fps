@@ -80,7 +80,6 @@ ruins_level_scene = "res://assets/Ruin_Level_Objects/Ruins_Level.tscn"
 environment = SubResource( 2 )
 
 [node name="Main_Menu_Camera" type="Camera" parent="Background_Animation"]
-transform = Transform( 1, -1.74846e-07, 1.74846e-07, 1.74846e-07, 1, -1.74846e-07, -1.74846e-07, 1.74846e-07, 1, 0, 0, 0 )
 
 [node name="Animation_Player" type="AnimationPlayer" parent="Background_Animation"]
 autoplay = "Background_Animation"
@@ -107,6 +106,9 @@ text = "Godot 3
 FPS Tutorial"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Button_Start" type="Button" parent="Start_Menu"]
 anchor_left = 0.5

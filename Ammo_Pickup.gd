@@ -40,21 +40,21 @@ func kit_size_change(value):
 
 
 func kit_size_change_values(size, enable):
-	if size == 0:
+	if size == 0:																	#if kit size is 0, make the large pickup visible and able to trigger.
 		$Holder/Ammo_Pickup_Trigger/Shape_Kit.disabled = !enable
 		$Holder/Ammo_Kit.visible = enable
-	elif size == 1:
+	elif size == 1:																	#if kit size is 1, make the small pickup visible and able to trigger
 		$Holder/Ammo_Pickup_Trigger/Shape_Kit_Small.disabled = !enable
 		$Holder/Ammo_Kit_Small.visible = enable
 
 
 func trigger_body_entered(body):
-	if body.has_method("add_ammo"):
+	if body.has_method("add_ammo"):													#if the collided body has add ammo function, add the amount, kit size has (4 magazines or 1 magazine), then reset the spawn timer and disable the kit
 		body.add_ammo(AMMO_AMOUNTS[kit_size])
 		respawn_timer = RESPAWN_TIME
 		kit_size_change_values(kit_size, false)
 
-	if body.has_method("add_grenade"):
+	if body.has_method("add_grenade"):												#same as above but for grenades
 		body.add_grenade(GRENADE_AMOUNTS[kit_size])
 		respawn_timer = RESPAWN_TIME
 		kit_size_change_values(kit_size, false)

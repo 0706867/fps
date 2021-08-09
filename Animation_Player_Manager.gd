@@ -1,7 +1,7 @@
 extends AnimationPlayer
 
 # Structure -> Animation name :[Connecting Animation states]
-var states = {
+var states = {																		#assigns names to the animation names
 	"Idle_unarmed":["Knife_equip", "Pistol_equip", "Rifle_equip", "Idle_unarmed"],
 
 	"Pistol_equip":["Pistol_idle"],
@@ -22,7 +22,7 @@ var states = {
 	"Knife_unequip":["Idle_unarmed"],
 }
 
-var animation_speeds = {
+var animation_speeds = {															#assigns speed for animations, 1 being normal, <1 being slower than default and >1 being faster than default
 	"Idle_unarmed":1,
 
 	"Pistol_equip":1.4,
@@ -47,11 +47,11 @@ var current_state = null
 var callback_function = null
 
 func _ready():
-	set_animation("Idle_unarmed")
+	set_animation("Idle_unarmed")													#starting animation = hands
 	connect("animation_finished", self, "animation_ended")
 
 func set_animation(animation_name):
-	if animation_name == current_state:
+	if animation_name == current_state:												#stops animations from being played more than once in the same stage, e.g cant play reloading animation when 1 is already playing
 		print ("AnimationPlayer_Manager.gd -- WARNING: animation is already ", animation_name)
 		return true
 
@@ -73,7 +73,7 @@ func set_animation(animation_name):
 	return false
 
 
-func animation_ended(anim_name):
+func animation_ended(anim_name):													#when animatons end, the mode is set to idle of that weapon.
 
 	# UNARMED transitions
 	if current_state == "Idle_unarmed":
@@ -110,7 +110,7 @@ func animation_ended(anim_name):
 	elif current_state == "Rifle_reload":
 		set_animation("Rifle_idle")
 
-func animation_callback():
+func animation_callback():															#allows animations to be played again
 	if callback_function == null:
 		print ("AnimationPlayer_Manager.gd -- WARNING: No callback function for the animation to call!")
 	else:
