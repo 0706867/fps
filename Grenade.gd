@@ -13,14 +13,14 @@ var grenade_mesh
 var blast_area
 var explosion_particles
 
-func _ready():
+func _ready():																		#assign names to nodes for convenience 
 	rigid_shape = $Collision_Shape
 	grenade_mesh = $Grenade
 	blast_area = $Blast_Area
 	explosion_particles = $Explosion
 
-	explosion_particles.emitting = false
-	explosion_particles.one_shot = true
+	explosion_particles.emitting = false											#are particle contantly playing
+	explosion_particles.one_shot = true												#are particles shwoing up once
 
 func _process(delta):
 
