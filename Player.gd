@@ -25,27 +25,28 @@ var changing_weapon = false                                                     
 var changing_weapon_name = "UNARMED"                                             #name of the weapon changed to
 var health = 100                                                                 # player health
 var UI_status_label                                                              #is the UI displaying?
-var simple_audio_player = preload("res://Simple_Audio_Player.tscn")
-var JOYPAD_SENSITIVITY = 2
-const JOYPAD_DEADZONE = 0.15
-var mouse_scroll_value = 0
-const MOUSE_SENSITIVITY_SCROLL_WHEEL = 0.08
-const MAX_HEALTH = 150
-var grenade_amounts = {"Grenade":2, "Sticky Grenade":2}
-var current_grenade = "Grenade"
-var grenade_scene = preload("res://Grenade.tscn")
-var sticky_grenade_scene = preload("res://Sticky_Grenade.tscn")
-const GRENADE_THROW_FORCE = 50
-var grabbed_object = null
-const OBJECT_THROW_FORCE = 120
-const OBJECT_GRAB_DISTANCE = 7
-const OBJECT_GRAB_RAY_DISTANCE = 10
-const RESPAWN_TIME = 4
-var dead_time = 0
-var is_dead = false
+var simple_audio_player = preload("res://Simple_Audio_Player.tscn")					#loads audioplayer
+var JOYPAD_SENSITIVITY = 2															#joypad sensitivity
+const JOYPAD_DEADZONE = 0.15														#joypad deadzone to stop jitters 
+var mouse_scroll_value = 0															#amount of scrolls done
+const MOUSE_SENSITIVITY_SCROLL_WHEEL = 0.5											#how much does 1 physical mouse scroll add up to in game mouse scroll
+const MAX_HEALTH = 150																#maximum health allowed for the player
+var grenade_amounts = {"Grenade":2, "Sticky Grenade":2}								#amount of each grenade
+var current_grenade = "Grenade"														#current grenade/spawning grenade
+var grenade_scene = preload("res://Grenade.tscn")									#load grenade scene and assign it to "grenade"
+var sticky_grenade_scene = preload("res://Sticky_Grenade.tscn")						#load sticky grenade scene and assign it to "sticky_grenade"
+const GRENADE_THROW_FORCE = 50														#how far and fast the grenade will be thrown
+var grabbed_object = null															#is the player grabbing anything
+const OBJECT_THROW_FORCE = 120														#how far and fast the grabbed object will be thrown
+const OBJECT_GRAB_DISTANCE = 7														#how far away the grabbed object will be from the player
+const OBJECT_GRAB_RAY_DISTANCE = 10													#how far away can the player grab something
+const RESPAWN_TIME = 4																#time required to respawn after death
+var dead_time = 0																	#how long has the player bene dead
+var is_dead = false																	#is the player dead?
 var globals
 
-func _ready():                                                                   #function called when the project starts
+func _ready():																		#function called when the project starts
+#assign names to nodes
 	camera = $Rotation_Helper/Camera
 	rotation_helper = $Rotation_Helper
 
@@ -60,60 +61,65 @@ func _ready():                                                                  
 
 	var gun_aim_point_pos = $Rotation_Helper/Gun_Aim_Point.global_transform.origin
 
-	for weapon in weapons:
+
+	for weapon in weapons:															#for every weapon in weapons array, if the weapon is not "unarmed", add the gun to the player, rotate it locally and set the gun aim point
 		var weapon_node = weapons[weapon]
 		if weapon_node != null:
 			weapon_node.player_node = self
 			weapon_node.look_at(gun_aim_point_pos, Vector3(0, 1, 0))
 			weapon_node.rotate_object_local(Vector3(0, 1, 0), deg2rad(180))
 
+
 	current_weapon_name = "UNARMED"
 	changing_weapon_name = "UNARMED"
-
+#assigns names ot nodes
 	UI_status_label = $HUD/Panel/Gun_label
 	flashlight = $Rotation_Helper/Flashlight
+#gets globals script
 	globals = get_node("/root/Globals")
+#gets spawn location
 	global_transform.origin = globals.get_respawn_position()
 
 
-func _physics_process(delta):                                                    #handles physics and other processes
-	if !is_dead:
+func _physics_process(delta):														#handles physics and other processes
+	if !is_dead:																	#if the player is not dead, enable input, view input and movement functions
 		process_input(delta)
 		process_view_input(delta)
 		process_movement(delta)
-	if (grabbed_object == null):
+	if (grabbed_object == null):													#if the player is not holding something, let the player change and reload weapons
 		process_changing_weapons(delta)
 		process_reloading(delta)
+#always show UI and let the player respawn
 	process_UI(delta)
 	process_respawn(delta)
 
 
-func process_input(delta):                                                       #processes input types
+func process_input(delta):															#processes input types
 # Changing weapons.
-	var weapon_change_number = WEAPON_NAME_TO_NUMBER[current_weapon_name]
+	var weapon_change_number = WEAPON_NAME_TO_NUMBER[current_weapon_name]			#assigns number to weapons in current_weapon_name array
 
-	if Input.is_key_pressed(KEY_1):
+	if Input.is_key_pressed(KEY_1):													#key 1 is first weapon in array
 		weapon_change_number = 0
-	if Input.is_key_pressed(KEY_2):
+	if Input.is_key_pressed(KEY_2):													#key 2 is 2nd weapon in array
 		weapon_change_number = 1
-	if Input.is_key_pressed(KEY_3):
+	if Input.is_key_pressed(KEY_3):													#key 3 is 3rd weapon in array
 		weapon_change_number = 2
-	if Input.is_key_pressed(KEY_4):
+	if Input.is_key_pressed(KEY_4):													#key 4 is 4th weapon in array
 		weapon_change_number = 3
 
-	if Input.is_action_just_pressed("shift_weapon_positive"):
+	if Input.is_action_just_pressed("shift_weapon_positive"):						#if "shift weapon positive" is pressed get the next weapon in current weapon name array
 		weapon_change_number += 1
-	if Input.is_action_just_pressed("shift_weapon_negative"):
+	if Input.is_action_just_pressed("shift_weapon_negative"):						#if "shift weapon negative" is pressed get the previous weapon in current weapon name array
 		weapon_change_number -= 1
 
-	weapon_change_number = clamp(weapon_change_number, 0, WEAPON_NUMBER_TO_NAME.size() - 1)
+	weapon_change_number = clamp(weapon_change_number, 0, WEAPON_NUMBER_TO_NAME.size() - 1)#stops the player from going past or below the weapon amount in array
 
-	if changing_weapon == false:
-		if reloading_weapon == false:
-			if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
+	if changing_weapon == false:													#if the player is not changing weapons
+		if reloading_weapon == false:												#if the player is not reloading weapons
+			if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:	#if the weapon requested is not already equipped, change the current weapon to requested e.g key 2 is pressed but knife is already equipped this code will not run
 				changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
 				changing_weapon = true
-		if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
+		if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:		#if player is not changing weapons and the requested weapon is not equpped, change weapons, set changing weapons to true  and change the weapons to scroll value, e.g. knife will equip when mouse is scrolled 2 times.
 			changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
 			changing_weapon = true
 			mouse_scroll_value = weapon_change_number
@@ -208,7 +214,7 @@ func process_input(delta):                                                      
 	# Capturing/Freeing the cursor
 # Capturing/Freeing cursor
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-		 Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 # ----------------------------------
 # Reloading
 	if reloading_weapon == false:
@@ -375,24 +381,24 @@ func process_changing_weapons(delta):                                           
 				current_weapon_name = changing_weapon_name
 				changing_weapon_name = ""
 
-func fire_bullet():                                                              #lets the player fire bullets
+func fire_bullet():																	#lets the player fire bullets
 	if changing_weapon == true:
 		return
 	weapons[current_weapon_name].fire_weapon()
 
-func process_UI(delta):                                                          #controls User Interface for the player
+func process_UI(delta):																#controls User Interface for the player
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
 		# First line: Health, second line: Grenades
 		UI_status_label.text = "HEALTH: " + str(health) + \
-				"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
+			"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
 	else:
 		var current_weapon = weapons[current_weapon_name]
 		# First line: Health, second line: weapon and ammo, third line: grenades
 		UI_status_label.text = "HEALTH: " + str(health) + \
-				"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo) + \
-				"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
+			"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo) + \
+			"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
 
-func process_reloading(delta):                                                   #lets the player reload
+func process_reloading(delta):														#lets the player reload
 	if reloading_weapon == true:
 		var current_weapon = weapons[current_weapon_name]
 		if current_weapon != null:
