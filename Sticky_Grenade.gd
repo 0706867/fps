@@ -28,26 +28,27 @@ func _ready():
 	explosion_particles.one_shot = true
 
 	$Sticky_Area.connect("body_entered", self, "collided_with_body")
+	
 
-
+	#same as grenade.gd except this function
 func collided_with_body(body):
 
-	if body == self:
+	if body == self:																#dont attach to itself
 		return
 
-	if player_body != null:
+	if player_body != null:															#dont attach to the player
 		if body == player_body:
 			return
 
-	if attached == false:
+	if attached == false:															#if its no attached to the player, set the new position as the collided location
 		attached = true
 		attach_point = Spatial.new()
 		body.add_child(attach_point)
 		attach_point.global_transform.origin = global_transform.origin
 
-		rigid_shape.disabled = true
+		rigid_shape.disabled = true													#disable the physics
 
-		mode = RigidBody.MODE_STATIC
+		mode = RigidBody.MODE_STATIC												#make the rigid body static (wont move)
 
 
 func _process(delta):
