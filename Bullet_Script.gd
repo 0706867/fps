@@ -17,7 +17,7 @@ func _physics_process(delta):
 	global_translate(forward_dir * BULLET_SPEED * delta)							#moves the bullet forward
 
 	timer += delta
-	if timer >= KILL_TIMER:															#if timer is higher than kill timer, bullet gets deleted, stops bullets from overloading cpu
+	if timer >= KILL_TIMER:															#if timer is higher than kill timer, bullet gets deleted, stops bullets from overloading the cpu
 		queue_free()
 
 
@@ -26,5 +26,5 @@ func collided(body):
 		if body.has_method("bullet_hit"):
 			body.bullet_hit(BULLET_DAMAGE, global_transform)
 
-	hit_something = true															#if make "hit something" function true and delete bullet
+	hit_something = true															#if yes, make "hit something" function true and delete bullet
 	queue_free()

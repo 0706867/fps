@@ -16,20 +16,21 @@ func _ready():
 	pass
 
 func fire_weapon():
-	var ray = $Ray_Cast
+	var ray = $Ray_Cast																#use ray casting and update it whenever weapon is fired
 	ray.force_raycast_update()
 
-	if ray.is_colliding():
+	if ray.is_colliding():															#if ray is colliding, get the collider
 		var body = ray.get_collider()
 
-		if body == player_node:
+		if body == player_node:														#if the collider is body, pass, else if the collider has "bullet_hit" function, do damage (elseif function has to be used as player body collider also contains this script and using other functions will cause the player to take damage)
 			pass
 		elif body.has_method("bullet_hit"):
 			body.bullet_hit(DAMAGE, ray.global_transform)
-	ammo_in_weapon -= 1
+	ammo_in_weapon -= 1																#reduce ammo and play sound
 	player_node.create_sound("Rifle_shot", ray.global_transform.origin)
 
 func equip_weapon():
+	#same as Weapon_Pistol.gd, using rifle sounds and animations instead
 	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
 		is_weapon_enabled = true
 		return true
@@ -40,7 +41,7 @@ func equip_weapon():
 	return false
 
 func unequip_weapon():
-
+	#same as Weapon_Pistol.gd, using rifle sounds and animations instead
 	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
 		if player_node.animation_manager.current_state != "Rifle_unequip":
 			player_node.animation_manager.set_animation("Rifle_unequip")
@@ -52,6 +53,7 @@ func unequip_weapon():
 	return false
 
 func reload_weapon():
+		#same as Weapon_Pistol.gd, using rifle ammo amounts instead
 	var can_reload = false
 
 	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
@@ -76,6 +78,6 @@ func reload_weapon():
 
 	return false
 
-func reset_weapon():
+func reset_weapon():																#default settings for the rifle.
 	ammo_in_weapon = 50
 	spare_ammo = 100

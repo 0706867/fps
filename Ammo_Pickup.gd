@@ -3,15 +3,15 @@ extends Spatial																			#can only be used on a spatial node
 export (int, "full size", "small") var kit_size = 0 setget kit_size_change				#export fucntion lets the developer change the size from the inspector
 
 # 0 = full size pickup, 1 = small pickup
-const AMMO_AMOUNTS = [4, 1]																	#ammo amount first entry[0] = 4 which gives 4 magazines and second entry[1] = 1 gives 1 magazine
-const RESPAWN_TIME = 20																		#respawn timer for the ammo pickup
-var respawn_timer = 0																		#time on the respawn timer
-var is_ready = false																		#can it be picked up
-const GRENADE_AMOUNTS = [2, 0]																#how many grenades get filled up
+const AMMO_AMOUNTS = [4, 1]															#ammo amount first entry[0] = 4 which gives 4 magazines and second entry[1] = 1 gives 1 magazine
+const RESPAWN_TIME = 20																#respawn timer for the ammo pickup
+var respawn_timer = 0																#time on the respawn timer
+var is_ready = false																#can it be picked up
+const GRENADE_AMOUNTS = [2, 0]														#how many grenades get filled up
 
 func _ready():
 
-	$Holder/Ammo_Pickup_Trigger.connect("body_entered", self, "trigger_body_entered")		#connects the node to the functions, when something collies it enables the trigger body function
+	$Holder/Ammo_Pickup_Trigger.connect("body_entered", self, "trigger_body_entered")		#connects the node to the function, when something collides it enables the trigger body function
 
 	is_ready = true																	# is able to be picked up
 

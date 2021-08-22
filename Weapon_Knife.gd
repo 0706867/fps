@@ -28,7 +28,7 @@ func fire_weapon():
 			body.bullet_hit(DAMAGE, area.global_transform)
 
 func equip_weapon():
-	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:				#if current stage is idle, set the variable weapon is equipped tpo true
+	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:				#if current stage is idle, set the variable weapon is equipped to true
 		is_weapon_enabled = true
 		return true
 
@@ -39,7 +39,7 @@ func equip_weapon():
 
 func unequip_weapon():
 
-	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:				#if the current stage is idle, change the animation to "knife_unqeuip"
+	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:				#if the current stage is idle, change the animation to "knife_unequip"
 		player_node.animation_manager.set_animation("Knife_unequip")
 
 	if player_node.animation_manager.current_state == "Idle_unarmed":				#if current animation is "idle_unarmed", unequip the current weapon
@@ -51,6 +51,6 @@ func unequip_weapon():
 func reload_weapon():
 	return false																	#return false as knife can not be reloaded 
 
-func reset_weapon():																#ammo nad magazine is being set to 1 so teh weapon stays usuable and the code is consistent
+func reset_weapon():																#ammo and magazine is being set to 1 so the weapon stays usuable and the code is consistent
 	ammo_in_weapon = 1
 	spare_ammo = 1

@@ -63,7 +63,7 @@ func _ready():
 
 func _physics_process(delta):
 
-	if is_active == true:															#if the turret is active, and enable flash until timer is 0
+	if is_active == true:															#if the turret is active, enable flash until timer is 0
 
 		if flash_timer > 0:
 			flash_timer -= delta
@@ -142,7 +142,7 @@ func body_entered_vision(body):														#if player enters the range
 
 func body_exited_vision(body):														#if a body (player) exits the range
 	if current_target != null:														#if there is a current target
-		if body == current_target:													#if player is the cuyrrent target
+		if body == current_target:													#if player is the current target
 			current_target = null													#deactivate the turret
 			is_active = false
 
@@ -152,7 +152,7 @@ func body_exited_vision(body):														#if a body (player) exits the range
 			node_flash_two.visible = false
 
 
-func bullet_hit(damage, bullet_hit_pos):										#lower health whe shot at, if the health goes below 0 -- start smoke and the timer
+func bullet_hit(damage, bullet_hit_pos):										#lower health when the turret takes damage, if the health goes below 0, start smoking and the timer
 	turret_health -= damage
 
 	if turret_health <= 0:

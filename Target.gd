@@ -23,24 +23,24 @@ func _physics_process(delta):
 	if target_respawn_timer > 0:													#if timer is higher than 0, reduce the timer
 		target_respawn_timer -= delta
 
-		if target_respawn_timer <= 0:												#if the tiemr is below or equal to 0
+		if target_respawn_timer <= 0:												#if the timer is below or equal to 0
 
-			for child in broken_target_holder.get_children():						#all broken pieces of the target, get deleted
+			for child in broken_target_holder.get_children():						#delete all broken pieces of the target
 				child.queue_free()
 
 			target_collision_shape.disabled = false									#enable the original shape
-			visible = true															#make it visible
+			visible = true															#make the original target visible
 			current_health = TARGET_HEALTH											#reset the target HP
 
 
-func bullet_hit(damage, bullet_transform):											#aloows the atrget to takedamage
+func bullet_hit(damage, bullet_transform):											#allows the target to take damage
 	current_health -= damage														#reduce the damage from current health
 
 	if current_health <= 0:															#if health is below 0
 		var clone = destroyed_target.instance()										#creates a new instance of the broken pieces
-		broken_target_holder.add_child(clone)										#add child tp the holder
+		broken_target_holder.add_child(clone)										#add child to the holder
 
-		for rigid in clone.get_children():											#makes teh being destroyed effect using the centre of the target and direction
+		for rigid in clone.get_children():											#makes the being destroyed effect using the centre of the target and direction
 			if rigid is RigidBody:
 				var center_in_rigid_space = broken_target_holder.global_transform.origin - rigid.global_transform.origin
 				var direction = (rigid.transform.origin - center_in_rigid_space).normalized()

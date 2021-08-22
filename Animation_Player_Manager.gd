@@ -51,7 +51,7 @@ func _ready():
 	connect("animation_finished", self, "animation_ended")
 
 func set_animation(animation_name):
-	if animation_name == current_state:												#stops animations from being played more than once in the same stage, e.g cant play reloading animation when 1 is already playing
+	if animation_name == current_state:												#stops animations from being played more than once in the same stage, e.g cant play reloading animation if one is already playing
 		print ("AnimationPlayer_Manager.gd -- WARNING: animation is already ", animation_name)
 		return true
 

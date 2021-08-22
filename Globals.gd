@@ -74,7 +74,7 @@ func popup_closed():																#when popup is closed, resume the game
 		popup = null
 
 
-func popup_quit():																	#if quit pressed, resume the game, make the mouse visible, dele the popup and go back to main menu
+func popup_quit():																	#if quit pressed, resume the game, make the mouse visible, delete the popup and go back to main menu
 	get_tree().paused = false
 
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -86,14 +86,14 @@ func popup_quit():																	#if quit pressed, resume the game, make the m
 	load_new_scene(MAIN_MENU_PATH)
 
 func get_respawn_position():														#set respawn points
-	if respawn_points == null:														#if there are no respawn point, make the 0,0,0 default
+	if respawn_points == null:														#if there are no respawn point, make the x=0,y=0,z=0 default
 		return Vector3(0, 0, 0)
 	else:																			#if its not empty, get the positions and set up the spawn points
 		var respawn_point = rand_range(0, respawn_points.size() - 1)
 		return respawn_points[respawn_point].global_transform.origin
 
 func play_sound(sound_name, loop_sound=false, sound_position=null):					#play the audio clip given, dont loop it (can be enabled) and dont has a position for audio(required for 3d audio)
-	if audio_clips.has(sound_name):													#if the audio clips dictonary has audio name, play sound
+	if audio_clips.has(sound_name):													#if the audio clips dictionary has audio name, play sound
 		var new_audio = SIMPLE_AUDIO_PLAYER_SCENE.instance()						#create new audio instance
 		new_audio.should_loop = loop_sound
 

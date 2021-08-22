@@ -56,7 +56,7 @@ func unequip_weapon():
 func reload_weapon():
 	var can_reload = false															#weapon can not be reloaded by default as magazine is full
 
-	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:				#if teh weapon is in idle stage, it cna reload
+	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:				#if the weapon is in idle stage, it can reload
 		can_reload = true
 
 	if spare_ammo <= 0 or ammo_in_weapon == AMMO_IN_MAG:							#if there is no spare ammo or the ammo in weapon and magazine is the same, presumably 0, pistol can not reload

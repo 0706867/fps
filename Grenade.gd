@@ -41,11 +41,9 @@ func _process(delta):
 				if body.has_method("bullet_hit"):
 					body.bullet_hit(GRENADE_DAMAGE, body.global_transform.looking_at(global_transform.origin, Vector3(0, 1, 0)))
 
-			# This would be the perfect place to play a sound!
-
 
 		if explosion_wait_timer < EXPLOSION_WAIT_TIME:								#if time since explosion is lower than time until grenade gets removed, add delta
 			explosion_wait_timer += delta
 
-			if explosion_wait_timer >= EXPLOSION_WAIT_TIME:							#iftime since explosion ius higher than time until grenade gets removed, remove it.
+			if explosion_wait_timer >= EXPLOSION_WAIT_TIME:							#if time since explosion is higher than time until grenade gets removed, remove it.
 				queue_free()

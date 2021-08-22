@@ -40,7 +40,7 @@ func collided_with_body(body):
 		if body == player_body:
 			return
 
-	if attached == false:															#if its no attached to the player, set the new position as the collided location
+	if attached == false:															#if its not attached to anything, set the new position as the collided location
 		attached = true
 		attach_point = Spatial.new()
 		body.add_child(attach_point)
@@ -53,34 +53,33 @@ func collided_with_body(body):
 
 func _process(delta):
 
-	if attached == true:
-		if attach_point != null:
-			global_transform.origin = attach_point.global_transform.origin
+	if attached == true:															#if it is attached
+		if attach_point != null:													#if a attached point exists
+			global_transform.origin = attach_point.global_transform.origin			#change the location to the location of attached collider
 
-	if grenade_timer < GRENADE_TIME:
-		grenade_timer += delta
+	if grenade_timer < GRENADE_TIME:												#if time till explosion is less than time required to explode
+		grenade_timer += delta														#add time
 		return
-	else:
-		if explosion_wait_timer <= 0:
-			explosion_particles.emitting = true
+	else:																			#if time till explosion is not less than time required to explode
+		if explosion_wait_timer <= 0:												#if explosion animation timer is less than 0
+			explosion_particles.emitting = true										#emit particles
 
-			grenade_mesh.visible = false
-			rigid_shape.disabled = true
+			grenade_mesh.visible = false											#make the grenade invisible
+			rigid_shape.disabled = true												#disable the body
 
-			mode = RigidBody.MODE_STATIC
+			mode = RigidBody.MODE_STATIC											#make the grenade static
 
-			var bodies = blast_area.get_overlapping_bodies()
+			var bodies = blast_area.get_overlapping_bodies()						#anything colliders in the blast redius
 			for body in bodies:
-				if body.has_method("bullet_hit"):
+				if body.has_method("bullet_hit"):									#do damage if they have "bullet_hit" function
 					body.bullet_hit(GRENADE_DAMAGE, body.global_transform.looking_at(global_transform.origin, Vector3(0, 1, 0)))
 
-			# This would be the perfect place to play a sound!
 
 
-		if explosion_wait_timer < EXPLOSION_WAIT_TIME:
+		if explosion_wait_timer < EXPLOSION_WAIT_TIME:								#if explosion animation timer is less than time required, add time
 			explosion_wait_timer += delta
 
-			if explosion_wait_timer >= EXPLOSION_WAIT_TIME:
-				if attach_point != null:
+			if explosion_wait_timer >= EXPLOSION_WAIT_TIME:							#if explosion animation timer is higher than time required
+				if attach_point != null:											#if the grenade is attached to something, destroy the object, the grenade is attached to
 					attach_point.queue_free()
-				queue_free()
+				queue_free()														#destroy the grenade when explosion animation tinmer is higher than time requried
