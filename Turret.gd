@@ -63,7 +63,7 @@ func _ready():
 
 func _physics_process(delta):
 
-	if is_active == true:
+	if is_active == true:															#if the turret is active, and enable flash until timer is 0
 
 		if flash_timer > 0:
 			flash_timer -= delta
@@ -72,34 +72,34 @@ func _physics_process(delta):
 				node_flash_one.visible = false
 				node_flash_two.visible = false
 
-		if current_target != null:
+		if current_target != null:													#if there is a target, look at the player
 
 			node_turret_head.look_at(current_target.global_transform.origin + Vector3(0, PLAYER_HEIGHT, 0), Vector3(0, 1, 0))
 
-			if turret_health > 0:
+			if turret_health > 0:													#if turret is alive 
 
-				if ammo_in_turret > 0:
-					if fire_timer > 0:
+				if ammo_in_turret > 0:												#if turret has ammo (not reloading)
+					if fire_timer > 0:												#if its not shooting
 						fire_timer -= delta
-					else:
+					else:															#shoot if its not reloading
 						fire_bullet()
 				else:
-					if ammo_reload_timer > 0:
+					if ammo_reload_timer > 0:										#if turret is reloading, reduce the reload timer
 						ammo_reload_timer -= delta
-					else:
+					else:															#if its not reloading, amake the magazine full
 						ammo_in_turret = AMMO_IN_FULL_TURRET
 
-	if turret_health <= 0:
-		if destroyed_timer > 0:
+	if turret_health <= 0:															#if turret is dead
+		if destroyed_timer > 0:														#if the destroyed timer is not 0, reduce time
 			destroyed_timer -= delta
-		else:
+		else:																		#if the destroyed tiemr is 0, heal the turret and stop the smoke particles.
 			turret_health = MAX_TURRET_HEALTH
 			smoke_particles.emitting = false
 
 
 func fire_bullet():
 
-	if use_raycast == true:
+	if use_raycast == true:														#if raycasting is on, follow the player, if the ray is colliding get the body and if it can take damage, shoot it.
 		node_raycast.look_at(current_target.global_transform.origin + Vector3(0, PLAYER_HEIGHT, 0), Vector3(0, 1, 0))
 
 		node_raycast.force_raycast_update()
@@ -110,8 +110,8 @@ func fire_bullet():
 				body.bullet_hit(TURRET_DAMAGE_RAYCAST, node_raycast.get_collision_point())
 
 		ammo_in_turret -= 1
-
-	else:
+		
+	else:																			#if ray casting is not on, get the bullet scene and use bullet to shoot
 		var clone = bullet_scene.instance()
 		var scene_root = get_tree().root.get_children()[0]
 		scene_root.add_child(clone)
@@ -129,21 +129,21 @@ func fire_bullet():
 	flash_timer = FLASH_TIME
 	fire_timer = FIRE_TIME
 
-	if ammo_in_turret <= 0:
+	if ammo_in_turret <= 0:															#if there are no bullets left, reload the turret
 		ammo_reload_timer = AMMO_RELOAD_TIME
 
 
-func body_entered_vision(body):
-	if current_target == null:
+func body_entered_vision(body):														#if player enters the range
+	if current_target == null:														#if there is no current target, make the player the new target
 		if body is KinematicBody:
 			current_target = body
 			is_active = true
 
 
-func body_exited_vision(body):
-	if current_target != null:
-		if body == current_target:
-			current_target = null
+func body_exited_vision(body):														#if a body (player) exits the range
+	if current_target != null:														#if there is a current target
+		if body == current_target:													#if player is the cuyrrent target
+			current_target = null													#deactivate the turret
 			is_active = false
 
 			flash_timer = 0
@@ -152,7 +152,7 @@ func body_exited_vision(body):
 			node_flash_two.visible = false
 
 
-func bullet_hit(damage, bullet_hit_pos):
+func bullet_hit(damage, bullet_hit_pos):										#lower health whe shot at, if the health goes below 0 -- start smoke and the timer
 	turret_health -= damage
 
 	if turret_health <= 0:
