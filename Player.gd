@@ -84,7 +84,8 @@ func _ready():																		#function called when the project starts
 func _physics_process(delta):														#handles physics and other processes
 	if !is_dead:																	#if the player is not dead, enable input, view input and movement functions
 		process_input(delta)
-		process_view_input(delta)
+		process_view_input_xbox(delta)
+		process_view_input_ps(delta)
 		process_movement(delta)
 	if (grabbed_object == null):													#if the player is not holding something, let the player change and reload weapons
 		process_changing_weapons(delta)
@@ -349,7 +350,7 @@ func _input(event):                                                             
 	if is_dead:
 		return
 
-func process_changing_weapons(delta):                                            #lets teh player change weapons
+func process_changing_weapons(delta):                                            #lets the player change weapons
 	if changing_weapon == true:
 	
 		var weapon_unequipped = false
@@ -410,7 +411,7 @@ func create_sound(sound_name, position=null):
 
 
 # XBOX
-func process_view_input(delta):
+func process_view_input_xbox(delta):														#camera controller for xbox 
 
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		return
@@ -431,7 +432,7 @@ func process_view_input(delta):
 		elif OS.get_name() == "OSX":
 			joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
 
-		if joypad_vec.length() < JOYPAD_DEADZONE:
+		if joypad_vec.length() < JOYPAD_DEADZONE:									#helps make the controls smooth by only letting the controller work when not in the deadzone
 			joypad_vec = Vector2(0, 0)
 		else:
 			joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
@@ -445,11 +446,10 @@ func process_view_input(delta):
 		rotation_helper.rotation_degrees = camera_rot
 	# ----------------------------------
 
-#PS
-#func process_view_input(delta):
-
-#	   if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
-#		   return
+#PS - same code as xbox, using different keys
+func process_view_input_ps(delta):													#camera controller for play station (made usable using a different name as according to the tutorial only 1 was supposed to be used)
+	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+		return
 
    # NOTE: Until some bugs relating to captured mice are fixed, we cannot put the mouse view
    # rotation code here. Once the bug(s) are fixed, code for mouse view rotation code will go here!
@@ -457,61 +457,67 @@ func process_view_input(delta):
    # ----------------------------------
    # Joypad rotation
 
-#	var joypad_vec = Vector2()
-#	if Input.get_connected_joypads().size() > 0:
+	var joypad_vec = Vector2()
+	if Input.get_connected_joypads().size() > 0:
 
-#	   if OS.get_name() == "Windows" or OS.get_name() == "X11":
-#		   joypad_vec = Vector2(Input.get_joy_axis(0, 2), Input.get_joy_axis(0, 3))
-#	   elif OS.get_name() == "OSX":
-#		   joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
+		if OS.get_name() == "Windows" or OS.get_name() == "X11":
+		   joypad_vec = Vector2(Input.get_joy_axis(0, 2), Input.get_joy_axis(0, 3))
+		elif OS.get_name() == "OSX":
+		   joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
 
-#	   if joypad_vec.length() < JOYPAD_DEADZONE:
-#		   joypad_vec = Vector2(0, 0)
-#	   else:
-#		   joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
+		if joypad_vec.length() < JOYPAD_DEADZONE:
+		   joypad_vec = Vector2(0, 0)
+		else:
+		   joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
 
-#	   rotation_helper.rotate_x(deg2rad(joypad_vec.y * JOYPAD_SENSITIVITY))
+		rotation_helper.rotate_x(deg2rad(joypad_vec.y * JOYPAD_SENSITIVITY))
 
-#	   rotate_y(deg2rad(joypad_vec.x * JOYPAD_SENSITIVITY * -1))
+		rotate_y(deg2rad(joypad_vec.x * JOYPAD_SENSITIVITY * -1))
 
-#	   var camera_rot = rotation_helper.rotation_degrees
-#	   camera_rot.x = clamp(camera_rot.x, -70, 70)
-#	   rotation_helper.rotation_degrees = camera_rot 
+		var camera_rot = rotation_helper.rotation_degrees
+		camera_rot.x = clamp(camera_rot.x, -70, 70)
+		rotation_helper.rotation_degrees = camera_rot 
    # ----------------------------------
-func add_health(additional_health):
-	health += additional_health
-	health = clamp(health, 0, MAX_HEALTH)
+
+func add_health(additional_health):													#runs when called
+	health += additional_health														#add additonal health to the current health
+	health = clamp(health, 0, MAX_HEALTH)											#stops the health from going over the maximum
 
 func add_ammo(additional_ammo):
-	if (current_weapon_name != "UNARMED"):
-		if (weapons[current_weapon_name].CAN_REFILL == true):
-			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo
+	if (current_weapon_name != "UNARMED"):											#if the current weapon is not unarmed
+		if (weapons[current_weapon_name].CAN_REFILL == true):						#if the weapon can refill (has lower than default ammo)
+			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo #add amounts of ammo depending on the pickup size
 
-func add_grenade(additional_grenade):
+func add_grenade(additional_grenade):												#same as above but for grenades
 	grenade_amounts[current_grenade] += additional_grenade
 	grenade_amounts[current_grenade] = clamp(grenade_amounts[current_grenade], 0, 4)
 
-func bullet_hit(damage, bullet_hit_pos):
-	health -= damage
+func bullet_hit(damage, bullet_hit_pos):											#gets the the location of bullet's collision area and the damage from the source
+	health -= damage																#reduce HP based on damage of the source
 
-func process_respawn(delta):
+func process_respawn(delta):														#lets the player respawn
 
 	# If we've just died
 	if health <= 0 and !is_dead:
 		$Body_CollisionShape.disabled = true
 		$Feet_CollisionShape.disabled = true
 
+	#change the current weapon to unarmed
 		changing_weapon = true
 		changing_weapon_name = "UNARMED"
 
+	#show the death screen
 		$HUD/Death_Screen.visible = true
 
+	#hide the UI and crosshair
 		$HUD/Panel.visible = false
 		$HUD/Crosshair.visible = false
 
+	#reset the death time
 		dead_time = RESPAWN_TIME
 		is_dead = true
 
+	#drop any picked up item
 		if grabbed_object != null:
 			grabbed_object.mode = RigidBody.MODE_RIGID
 			grabbed_object.apply_impulse(Vector3(0, 0, 0), -camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE / 2)
@@ -521,30 +527,38 @@ func process_respawn(delta):
 
 			grabbed_object = null
 
+	#if player is dead (works the same as (if is_dead == true), written shorter for convenience) 
 	if is_dead:
 		dead_time -= delta
 
 		var dead_time_pretty = str(dead_time).left(3)
 		$HUD/Death_Screen/Label.text = "You died\n" + dead_time_pretty + " seconds till respawn"
 
+	#if the respawn time is 0, set the location as one of the spawning locations
 		if dead_time <= 0:
 			global_transform.origin = globals.get_respawn_position()
 
+	#enable body colliders
 			$Body_CollisionShape.disabled = false
 			$Feet_CollisionShape.disabled = false
 
+	#hide death screen
 			$HUD/Death_Screen.visible = false
 
+	#show UI and crosshair
 			$HUD/Panel.visible = true
 			$HUD/Crosshair.visible = true
 
+	#reset the weapons (ammo and default)
 			for weapon in weapons:
 				var weapon_node = weapons[weapon]
 				if weapon_node != null:
 					weapon_node.reset_weapon()
-
+	
+	#reset health and grenades
 			health = 100
 			grenade_amounts = {"Grenade":2, "Sticky Grenade":2}
 			current_grenade = "Grenade"
 
+	#make the player alive
 			is_dead = false
