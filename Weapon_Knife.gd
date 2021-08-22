@@ -20,15 +20,15 @@ func fire_weapon():
 	var area = $Area
 	var bodies = area.get_overlapping_bodies()
 
-	for body in bodies:
+	for body in bodies:																#if collided area is player, continue (we use continue as we want the loop to continue for each body)
 		if body == player_node:
 			continue
 
-		if body.has_method("bullet_hit"):
+		if body.has_method("bullet_hit"):											#if the collided body has bullet hit method, do damage
 			body.bullet_hit(DAMAGE, area.global_transform)
 
 func equip_weapon():
-	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
+	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:				#
 		is_weapon_enabled = true
 		return true
 
