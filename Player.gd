@@ -1,30 +1,30 @@
 extends KinematicBody
 
-const GRAVITY = -24.8                                                            #how hard the player is pulled to the ground
-var vel = Vector3()                                                              #player velocity
-const MAX_SPEED = 20                                                             #maximum speed the player can travel
-const JUMP_SPEED = 18                                                            #speed when jumping
-const ACCEL = 4.5                                                                #player's speed of acceleration
-const MAX_SPRINT_SPEED = 70                                                      #maximum speed while sprinting
-const SPRINT_ACCEL = 18                                                          #acceleration when spriniting
-var is_sprinting = false                                                         #is the player sprinting?
-var reloading_weapon = false                                                     #is the player reloading a weapon?
-var flashlight                                                                   #placeholder for a flashlight
-var dir = Vector3()                                                              #direction of an object in a (vector)3 dimentional space
-const DEACCEL= 16                                                                # rate of deceleration
-const MAX_SLOPE_ANGLE = 40                                                       #maximum angle the player can climb
-var camera                                                                       #PH for camera
-var rotation_helper                                                              #helps the player rotate locally without moving the global body
-var MOUSE_SENSITIVITY = 0.5                                                      #sensitivity of the camera for looking around
-var animation_manager                                                            #manages animations
-var current_weapon_name = "UNARMED"                                              #starting weapon
-var weapons = {"UNARMED":null, "KNIFE":null, "PISTOL":null, "RIFLE":null}        #all the weapons
-const WEAPON_NUMBER_TO_NAME = {0:"UNARMED", 1:"KNIFE", 2:"PISTOL", 3:"RIFLE"}    #assigns weapons to numbers so the player can change weapons by using numbers
-const WEAPON_NAME_TO_NUMBER = {"UNARMED":0, "KNIFE":1, "PISTOL":2, "RIFLE":3}    #same as above
-var changing_weapon = false                                                      #is the player changing weapons
-var changing_weapon_name = "UNARMED"                                             #name of the weapon changed to
-var health = 100                                                                 # player health
-var UI_status_label                                                              #is the UI displaying?
+const GRAVITY = -24.8																#how hard the player is pulled to the ground
+var vel = Vector3()																	#player velocity
+const MAX_SPEED = 20																#maximum speed the player can travel
+const JUMP_SPEED = 18																#speed when jumping
+const ACCEL = 4.5																	#player's speed of acceleration
+const MAX_SPRINT_SPEED = 70															#maximum speed while sprinting
+const SPRINT_ACCEL = 18																#acceleration when spriniting
+var is_sprinting = false															#is the player sprinting?
+var reloading_weapon = false														#is the player reloading a weapon?
+var flashlight																		#placeholder for a flashlight
+var dir = Vector3()																	#direction of an object in a (vector)3 dimentional space
+const DEACCEL= 16																	# rate of deceleration
+const MAX_SLOPE_ANGLE = 40															#maximum angle the player can climb
+var camera																			#PH for camera
+var rotation_helper																	#helps the player rotate locally without moving the global body
+var MOUSE_SENSITIVITY = 0.5															#sensitivity of the camera for looking around
+var animation_manager																#manages animations
+var current_weapon_name = "UNARMED"													#starting weapon
+var weapons = {"UNARMED":null, "KNIFE":null, "PISTOL":null, "RIFLE":null}			#all the weapons
+const WEAPON_NUMBER_TO_NAME = {0:"UNARMED", 1:"KNIFE", 2:"PISTOL", 3:"RIFLE"}		#assigns weapons to numbers so the player can change weapons by using numbers
+const WEAPON_NAME_TO_NUMBER = {"UNARMED":0, "KNIFE":1, "PISTOL":2, "RIFLE":3}		#same as above
+var changing_weapon = false															#is the player changing weapons
+var changing_weapon_name = "UNARMED"												#name of the weapon changed to
+var health = 100																	# player health
+var UI_status_label																	#is the UI displaying?
 var simple_audio_player = preload("res://Simple_Audio_Player.tscn")					#loads audioplayer
 var JOYPAD_SENSITIVITY = 2															#joypad sensitivity
 const JOYPAD_DEADZONE = 0.15														#joypad deadzone to stop jitters 
@@ -41,7 +41,7 @@ const OBJECT_THROW_FORCE = 120														#how far and fast the grabbed object
 const OBJECT_GRAB_DISTANCE = 7														#how far away the grabbed object will be from the player
 const OBJECT_GRAB_RAY_DISTANCE = 10													#how far away can the player grab something
 const RESPAWN_TIME = 4																#time required to respawn after death
-var dead_time = 0																	#how long has the player bene dead
+var dead_time = 0																	#how long has the player been dead
 var is_dead = false																	#is the player dead?
 var globals
 
@@ -99,14 +99,14 @@ func process_input(delta):															#processes input types
 # Changing weapons.
 	var weapon_change_number = WEAPON_NAME_TO_NUMBER[current_weapon_name]			#assigns number to weapons in current_weapon_name array
 
-	if Input.is_key_pressed(KEY_1):													#key 1 is first weapon in array
-		weapon_change_number = 0
-	if Input.is_key_pressed(KEY_2):													#key 2 is 2nd weapon in array
-		weapon_change_number = 1
-	if Input.is_key_pressed(KEY_3):													#key 3 is 3rd weapon in array
-		weapon_change_number = 2
-	if Input.is_key_pressed(KEY_4):													#key 4 is 4th weapon in array
+	if Input.is_key_pressed(KEY_1):													#key 1 is fourth weapon in array (this gives us the rifle, i did this to keep consistency with other FPS)
 		weapon_change_number = 3
+	if Input.is_key_pressed(KEY_2):													#key 2 is third weapon in array (this gives us pistol, to keep consistency with other FPS)
+		weapon_change_number = 2
+	if Input.is_key_pressed(KEY_3):													#key 3 is second weapon in array (this gives us the knife, also keeps consistency with other FPS)
+		weapon_change_number = 1
+	if Input.is_key_pressed(KEY_4):													#key 4 is first weapon in array (this gives us the unarmed/hands, althoguh most fps dont have this, i thought it kept consistency with the numbers)
+		weapon_change_number = 0
 
 	if Input.is_action_just_pressed("shift_weapon_positive"):						#if "shift weapon positive" is pressed get the next weapon in current weapon name array
 		weapon_change_number += 1
@@ -126,7 +126,7 @@ func process_input(delta):															#processes input types
 			mouse_scroll_value = weapon_change_number
 # ----------------------------------
 # Firing the weapons
-	if Input.is_action_pressed("fire"):
+	if Input.is_action_pressed("fire"):												#if fire button is pressed, player is not reloading or changing weapons, and the ammo in current weapon is higher than 0, shoot
 		if reloading_weapon == false:
 			if changing_weapon == false:
 				var current_weapon = weapons[current_weapon_name]
@@ -134,37 +134,41 @@ func process_input(delta):															#processes input types
 					if current_weapon.ammo_in_weapon > 0:
 						if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME:
 							animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME)
-					else:
+					else:															#if not, reload the weapon
 						reloading_weapon = true
 # ----------------------------------
 # Sprinting
-	if Input.is_action_pressed("movement_sprint"):
+	if Input.is_action_pressed("movement_sprint"):									#if sprinting is pressed,enable it else disable it, this enables hold sprinting, to make it toggle replace, below with commented code:
+		#if(is_sprinting == true and Input.is_action_pressed("movement_sprint"):
+			#is_sprinting = false
+		#else 
+		#is_sprinting = true 
 		is_sprinting = true
 	else:
 		is_sprinting = false
 # ----------------------------------
 # Turning the flashlight on/off
-	if Input.is_action_just_pressed("flashlight"):
+	if Input.is_action_just_pressed("flashlight"):									#if key for flashlight is pressed, check if its on, disable if it is, if not enable it
 		if flashlight.is_visible_in_tree():
 			flashlight.hide()
 		else:
 			flashlight.show()
 # ----------------------------------
 # Walking
-	dir = Vector3()
-	var cam_xform = camera.get_global_transform()
+	dir = Vector3()																	#gets direction from  all 3 axis
+	var cam_xform = camera.get_global_transform()									#puts the camera in the face of the player
 
-	var input_movement_vector = Vector2()
+	var input_movement_vector = Vector2()											#set movement to 2d, only using x and y
 
-	if Input.is_action_pressed("movement_forward"):
+	if Input.is_action_pressed("movement_forward"):									#add to y if forward is pressed
 		input_movement_vector.y += 1
-	if Input.is_action_pressed("movement_backward"):
+	if Input.is_action_pressed("movement_backward"):								#subtract from  y if backwards is pressed
 		input_movement_vector.y -= 1
-	if Input.is_action_pressed("movement_left"):
+	if Input.is_action_pressed("movement_left"):									#subtract from  x if left  is pressed
 		input_movement_vector.x -= 1
-	if Input.is_action_pressed("movement_right"):
+	if Input.is_action_pressed("movement_right"):									#add to x if right is pressed
 		input_movement_vector.x += 1
-	# Add joypad input if one is present == XBOX
+	# Add joypad input if one is present (changes depending on the function provided)
 	if Input.get_connected_joypads().size() > 0:
 
 		var joypad_vec = Vector2(0, 0)
@@ -208,46 +212,45 @@ func process_input(delta):															#processes input types
 	dir += cam_xform.basis.x * input_movement_vector.x
 # ----------------------------------
 # Jumping
-	if is_on_floor():
-		if Input.is_action_just_pressed("movement_jump"):
+	if is_on_floor():																#if the player is in the air, can not jump
+		if Input.is_action_just_pressed("movement_jump"):							#if jump key is pressed, set y of velocity to jump speed
 			vel.y = JUMP_SPEED
 # ----------------------------------
 	# Capturing/Freeing the cursor
-# Capturing/Freeing cursor
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:							#if mouse if visible, make hide it/ not let it leave the screen.
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 # ----------------------------------
 # Reloading
-	if reloading_weapon == false:
+	if reloading_weapon == false:													#if weapon is being reloaded or changed
 		if changing_weapon == false:
-			if Input.is_action_just_pressed("reload"):
+			if Input.is_action_just_pressed("reload"):								#if the reload key is pressed, get the current weapon being used
 				var current_weapon = weapons[current_weapon_name]
-				if current_weapon != null:
-					if current_weapon.CAN_RELOAD == true:
+				if current_weapon != null:											#if th current wepaon is not unarmed
+					if current_weapon.CAN_RELOAD == true:							#if the weapon can reload, set the reloading animation, change the reloading stage to yes
 						var current_anim_state = animation_manager.current_state
 						var is_reloading = false
-						for weapon in weapons:
+						for weapon in weapons:										#for every weapon in the array, get the current weapon
 							var weapon_node = weapons[weapon]
-							if weapon_node != null:
+							if weapon_node != null:									#if weapon is not unarmed and current animation  is reloading, set realodign variable to true
 								if current_anim_state == weapon_node.RELOADING_ANIM_NAME:
 									is_reloading = true
-						if is_reloading == false:
+						if is_reloading == false:									#if the weapon can reload but is not in the array and the reloading weapon variable is false, make it true
 							reloading_weapon = true
 # ----------------------------------
 # Changing and throwing grenades
 
-	if Input.is_action_just_pressed("change_grenade"):
+	if Input.is_action_just_pressed("change_grenade"):								#if change grenade is pressed, change it from current to different one
 		if current_grenade == "Grenade":
 			current_grenade = "Sticky Grenade"
 		elif current_grenade == "Sticky Grenade":
 			current_grenade = "Grenade"
-
-	if Input.is_action_just_pressed("fire_grenade"):
+	
+	if Input.is_action_just_pressed("fire_grenade"):								#if grenade is thrown, and there is more than 0 ammo, reduce the ammo by 1
 		if grenade_amounts[current_grenade] > 0:
 			grenade_amounts[current_grenade] -= 1
 
 			var grenade_clone
-			if current_grenade == "Grenade":
+			if current_grenade == "Grenade":										#make a new instance depending on teh current grenade
 				grenade_clone = grenade_scene.instance()
 			elif current_grenade == "Sticky Grenade":
 				grenade_clone = sticky_grenade_scene.instance()
