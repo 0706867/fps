@@ -316,8 +316,7 @@ func process_movement(delta):                                                   
 			accel = SPRINT_ACCEL
 		else:
 			accel = ACCEL
-	else:																			#if teh player is not moving, decelerate
-		
+	else:																			#if the player is not moving, decelerate
 		accel = DEACCEL
 
 	hvel = hvel.linear_interpolate(target, accel * delta)
@@ -325,7 +324,7 @@ func process_movement(delta):                                                   
 	vel.z = hvel.z
 	vel = move_and_slide(vel, Vector3(0, 1, 0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
 
-func _input(event):                                                              #lets the player use cursor when widow is not focused
+func _input(event):																	#lets the player use cursor when widow is not focused
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY))
 		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
@@ -334,16 +333,16 @@ func _input(event):                                                             
 		camera_rot.x = clamp(camera_rot.x, -70, 70)
 		rotation_helper.rotation_degrees = camera_rot
 
-	if event is InputEventMouseButton and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		if event.button_index == BUTTON_WHEEL_UP or event.button_index == BUTTON_WHEEL_DOWN:
-			if event.button_index == BUTTON_WHEEL_UP:
+	if event is InputEventMouseButton and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:	#if mouse button is pressed when mouse is in captured mode
+		if event.button_index == BUTTON_WHEEL_UP or event.button_index == BUTTON_WHEEL_DOWN:	#if mouse button is either scroll up or scroll down
+			if event.button_index == BUTTON_WHEEL_UP:											#if its scroll up, add to the scroll value 
 				mouse_scroll_value += MOUSE_SENSITIVITY_SCROLL_WHEEL
-			elif event.button_index == BUTTON_WHEEL_DOWN:
+			elif event.button_index == BUTTON_WHEEL_DOWN:										#if its scroll down, subtract from the scroll value
 				mouse_scroll_value -= MOUSE_SENSITIVITY_SCROLL_WHEEL
 
-			mouse_scroll_value = clamp(mouse_scroll_value, 0, WEAPON_NUMBER_TO_NAME.size() - 1)
+			mouse_scroll_value = clamp(mouse_scroll_value, 0, WEAPON_NUMBER_TO_NAME.size() - 1)	#assigns scroll value to wepaons in the array
 
-			if changing_weapon == false:
+			if changing_weapon == false:														#if a mouse buttons is pressed, player can only change weapons when not reloading or changing weapons 
 				if reloading_weapon == false:
 					var round_mouse_scroll_value = int(round(mouse_scroll_value))
 					if WEAPON_NUMBER_TO_NAME[round_mouse_scroll_value] != current_weapon_name:
@@ -351,29 +350,29 @@ func _input(event):                                                             
 						changing_weapon = true
 						mouse_scroll_value = round_mouse_scroll_value
 
-	if is_dead:
+	if is_dead:																		#if the player is dead, dont run this code again
 		return
 
-func process_changing_weapons(delta):                                            #lets the player change weapons
-	if changing_weapon == true:
+func process_changing_weapons(delta):												#lets the player change weapons
+	if changing_weapon == true:														#if the weapon is being changed
 	
-		var weapon_unequipped = false
-		var current_weapon = weapons[current_weapon_name]
+		var weapon_unequipped = false												#make weapon unequipped false
+		var current_weapon = weapons[current_weapon_name]							#get the current weapon
 
-		if current_weapon == null:
+		if current_weapon == null:													#if the current weapon is unarmed, make the weapon unequip-able
 			weapon_unequipped = true
-		else:
-			if current_weapon.is_weapon_enabled == true:
-				weapon_unequipped = current_weapon.unequip_weapon()
-			else:
+		else:																		#if its not unarmed
+			if current_weapon.is_weapon_enabled == true:							#if the current weapon is in use
+				weapon_unequipped = current_weapon.unequip_weapon()					#unequip the current weapon
+			else:																	#if the weapon is not in use, unequip it
 				weapon_unequipped = true
 
-		if weapon_unequipped == true:
+		if weapon_unequipped == true:												#if the weapon is unequipped
 
-			var weapon_equipped = false
-			var weapon_to_equip = weapons[changing_weapon_name]
+			var weapon_equipped = false												#the weapon is not yet equipped
+			var weapon_to_equip = weapons[changing_weapon_name]						#get the requested weapon
 
-			if weapon_to_equip == null:
+			if weapon_to_equip == null:												#same as above but for equipping weapon
 				weapon_equipped = true
 			else:
 				if weapon_to_equip.is_weapon_enabled == false:
@@ -387,12 +386,12 @@ func process_changing_weapons(delta):                                           
 				changing_weapon_name = ""
 
 func fire_bullet():																	#lets the player fire bullets
-	if changing_weapon == true:
+	if changing_weapon == true:														#if player is changing the weapon, dont fire
 		return
-	weapons[current_weapon_name].fire_weapon()
+	weapons[current_weapon_name].fire_weapon()										#fire the current weapon when this function is called
 
 func process_UI(delta):																#controls User Interface for the player
-	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
+	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":			#gets variables and converts them to strings, which lets the canvas display it 
 		# First line: Health, second line: Grenades
 		UI_status_label.text = "HEALTH: " + str(health) + \
 			"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
@@ -404,14 +403,14 @@ func process_UI(delta):																#controls User Interface for the player
 			"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
 
 func process_reloading(delta):														#lets the player reload
-	if reloading_weapon == true:
-		var current_weapon = weapons[current_weapon_name]
-		if current_weapon != null:
-			current_weapon.reload_weapon()
-		reloading_weapon = false
+	if reloading_weapon == true:													#if weapon is able to reload
+		var current_weapon = weapons[current_weapon_name]							#get the current weapon
+		if current_weapon != null:													#if its not unarmed
+			current_weapon.reload_weapon()											#reload weapon
+		reloading_weapon = false													#make the weapon unable to reload
 
-func create_sound(sound_name, position=null):
-	globals.play_sound(sound_name, false, position)
+func create_sound(sound_name, position=null):										#using sounds, function required sound name, position is required if used in 3D
+	globals.play_sound(sound_name, false, position)									#plays the sound it recieves(sound_name), dont loop the audio (false), set the position of the audio (position)
 
 
 # XBOX
@@ -502,18 +501,18 @@ func bullet_hit(damage, bullet_hit_pos):											#gets the the location of bul
 func process_respawn(delta):														#lets the player respawn
 
 	# If we've just died
-	if health <= 0 and !is_dead:
-		$Body_CollisionShape.disabled = true
+	if health <= 0 and !is_dead:													#if the health is below 0 and the player is not dead
+		$Body_CollisionShape.disabled = true										#disable body
 		$Feet_CollisionShape.disabled = true
 
-	#change the current weapon to unarmed
+																					#change the current weapon to unarmed
 		changing_weapon = true
 		changing_weapon_name = "UNARMED"
 
-	#show the death screen
+																					#show the death screen
 		$HUD/Death_Screen.visible = true
 
-	#hide the UI and crosshair
+																					#hide the UI and crosshair
 		$HUD/Panel.visible = false
 		$HUD/Crosshair.visible = false
 
@@ -521,7 +520,7 @@ func process_respawn(delta):														#lets the player respawn
 		dead_time = RESPAWN_TIME
 		is_dead = true
 
-	#drop any picked up item
+																					#drop any picked up item
 		if grabbed_object != null:
 			grabbed_object.mode = RigidBody.MODE_RIGID
 			grabbed_object.apply_impulse(Vector3(0, 0, 0), -camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE / 2)
@@ -531,38 +530,38 @@ func process_respawn(delta):														#lets the player respawn
 
 			grabbed_object = null
 
-	#if player is dead (works the same as (if is_dead == true), written shorter for convenience) 
+																					#if player is dead (works the same as (if is_dead == true), written shorter for convenience) 
 	if is_dead:
 		dead_time -= delta
 
 		var dead_time_pretty = str(dead_time).left(3)
 		$HUD/Death_Screen/Label.text = "You died\n" + dead_time_pretty + " seconds till respawn"
 
-	#if the respawn time is 0, set the location as one of the spawning locations
+																					#if the respawn time is 0, set the location as one of the spawning locations
 		if dead_time <= 0:
 			global_transform.origin = globals.get_respawn_position()
 
-	#enable body colliders
+																					#enable body colliders
 			$Body_CollisionShape.disabled = false
 			$Feet_CollisionShape.disabled = false
 
-	#hide death screen
+																					#hide death screen
 			$HUD/Death_Screen.visible = false
 
-	#show UI and crosshair
+																					#show UI and crosshair
 			$HUD/Panel.visible = true
 			$HUD/Crosshair.visible = true
 
-	#reset the weapons (ammo and default)
+																					#reset the weapons (ammo and default)
 			for weapon in weapons:
 				var weapon_node = weapons[weapon]
 				if weapon_node != null:
 					weapon_node.reset_weapon()
 	
-	#reset health and grenades
+																					#reset health and grenades
 			health = 100
 			grenade_amounts = {"Grenade":2, "Sticky Grenade":2}
 			current_grenade = "Grenade"
 
-	#make the player alive
+																					#make the player alive
 			is_dead = false
