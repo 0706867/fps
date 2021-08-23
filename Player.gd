@@ -250,22 +250,22 @@ func process_input(delta):															#processes input types
 			grenade_amounts[current_grenade] -= 1
 
 			var grenade_clone
-			if current_grenade == "Grenade":										#make a new instance depending on teh current grenade
+			if current_grenade == "Grenade":										#make a new instance depending on the current grenade
 				grenade_clone = grenade_scene.instance()
 			elif current_grenade == "Sticky Grenade":
 				grenade_clone = sticky_grenade_scene.instance()
 				# Sticky grenades will stick to the player if we do not pass ourselves
-				grenade_clone.player_body = self
+				grenade_clone.player_body = self									#treats player body as self, so it wont stick to it
 
-			get_tree().root.add_child(grenade_clone)
+			get_tree().root.add_child(grenade_clone)								#add the thrown greande to the scene, get the location and rotation
 			grenade_clone.global_transform = $Rotation_Helper/Grenade_Toss_Pos.global_transform
 			grenade_clone.apply_impulse(Vector3(0, 0, 0), grenade_clone.global_transform.basis.z * GRENADE_THROW_FORCE)
 # ----------------------------------
 
 # Grabbing and throwing objects
 
-	if Input.is_action_just_pressed("throw") and current_weapon_name == "UNARMED":
-		if grabbed_object == null:
+	if Input.is_action_just_pressed("throw") and current_weapon_name == "UNARMED":	#if throw is pressed and current weapon is unarmed
+		if grabbed_object == null:													#if there is nothing grabbed
 			var state = get_world().direct_space_state
 
 			var center_position = get_viewport().size / 2
@@ -273,15 +273,15 @@ func process_input(delta):															#processes input types
 			var ray_to = ray_from + camera.project_ray_normal(center_position) * OBJECT_GRAB_RAY_DISTANCE
 
 			var ray_result = state.intersect_ray(ray_from, ray_to, [self, $Rotation_Helper/Gun_Fire_Points/Knife_Point/Area])
-			if !ray_result.empty():
-				if ray_result["collider"] is RigidBody:
+			if !ray_result.empty():													#if ray is interacting with soemthing
+				if ray_result["collider"] is RigidBody:								#if the interacted object has rigidbody collider, grab it
 					grabbed_object = ray_result["collider"]
 					grabbed_object.mode = RigidBody.MODE_STATIC
 
 					grabbed_object.collision_layer = 0
 					grabbed_object.collision_mask = 0
 
-		else:
+		else:																		#if there is something grabbed, we throw it in the direction the camera is facing
 			grabbed_object.mode = RigidBody.MODE_RIGID
 
 			grabbed_object.apply_impulse(Vector3(0, 0, 0), -camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE)
@@ -291,7 +291,7 @@ func process_input(delta):															#processes input types
 
 			grabbed_object = null
 
-	if grabbed_object != null:
+	if grabbed_object != null:														#if something is being grabbed, set its location and rotation
 		grabbed_object.global_transform.origin = camera.global_transform.origin + (-camera.global_transform.basis.z.normalized() * OBJECT_GRAB_DISTANCE)
 # ----------------------------------
 
@@ -305,18 +305,19 @@ func process_movement(delta):                                                   
 	hvel.y = 0
 
 	var target = dir
-	if is_sprinting:
+	if is_sprinting:																#if player is sprinting, change the speed to max sprining speed, if not sprinting change the current speed to max walking speed
 		target *= MAX_SPRINT_SPEED
 	else:
 		target *= MAX_SPEED
 
 	var accel
-	if dir.dot(hvel) > 0:
+	if dir.dot(hvel) > 0:															#if the player is moving and sprinting is pressed, sprint
 		if is_sprinting:
 			accel = SPRINT_ACCEL
 		else:
 			accel = ACCEL
-	else:
+	else:																			#if teh player is not moving, decelerate
+		
 		accel = DEACCEL
 
 	hvel = hvel.linear_interpolate(target, accel * delta)
