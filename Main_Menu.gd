@@ -7,7 +7,7 @@ var options_menu
 export (String, FILE) var testing_area_scene
 export (String, FILE) var space_level_scene
 export (String, FILE) var ruins_level_scene
-
+export (String, FILE) var main_level_scene
 func _ready():
 	start_menu = $Start_Menu
 	level_select_menu = $Level_Select_Menu
@@ -64,6 +64,9 @@ func level_select_menu_button_pressed(button_name):									#buttons in level se
 	elif button_name == "ruins_level":
 		set_mouse_and_joypad_sensitivity()
 		get_node("/root/Globals").load_new_scene(ruins_level_scene)
+	elif button_name == "main_level":
+		set_mouse_and_joypad_sensitivity()
+		get_node("/root/Globals").load_new_scene(main_level_scene)
 
 #assigns scenes and functions to buttons in options scene
 func options_menu_button_pressed(button_name):
