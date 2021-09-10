@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Crago crate.obj-d04d6abe40b40466d17e69852b962837.mesh"
+
+[deps]
+
+files=[ "res://.import/Crago crate.obj-d04d6abe40b40466d17e69852b962837.mesh" ]
+
+source_file="res://Crago crate.obj"
+dest_files=[ "res://.import/Crago crate.obj-d04d6abe40b40466d17e69852b962837.mesh", "res://.import/Crago crate.obj-d04d6abe40b40466d17e69852b962837.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
