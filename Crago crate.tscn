@@ -64,7 +64,6 @@ material/0 = null
 
 [node name="Cube005" type="MeshInstance" parent="."]
 transform = Transform( 1.11796, 0.0581862, 6.90567e-08, 1.77569e-07, -6.52943e-09, -3.64131, 1.15439, -0.0563504, 4.93232e-07, 8.34549, 4.3381, -4.33073 )
-visible = false
 mesh = SubResource( 1 )
 material/0 = null
 
@@ -75,19 +74,16 @@ material/0 = null
 
 [node name="Cube004" type="MeshInstance" parent="."]
 transform = Transform( -0.0935856, 6.02225e-14, -3.49889e-07, 8.18151e-09, 6.88864e-07, -4.00226, 0, 4.22822, 6.52052e-07, -7.59726, 4.00078, -1.34558 )
-visible = false
 mesh = SubResource( 1 )
 material/0 = null
 
 [node name="Plane2" type="MeshInstance" parent="."]
 transform = Transform( 7.45201, 6.01873e-14, 4.69873e-06, 6.51475e-07, -6.88462e-07, -53.7472, 0, -4.22575, 8.75654e-06, -0.0975593, 8.01082, -1.36058 )
-visible = false
 mesh = SubResource( 3 )
 material/0 = null
 
 [node name="Cube007" type="MeshInstance" parent="."]
 transform = Transform( 7.41067, 0, 0, 0, -6.76842e-07, 0.179568, 0, -4.15443, -2.92553e-08, -0.106034, 0.601068, -1.40516 )
-visible = false
 mesh = SubResource( 1 )
 material/0 = null
 
