@@ -10,6 +10,7 @@ var debug_display = null
 
 # ------------------------------------
 const MAIN_MENU_PATH = "res://Main_Menu.tscn"
+const FINISH_PATH = "res://level_completed.tscn"
 const POPUP_SCENE = preload("res://Pause_Popup.tscn")
 var popup = null
 var respawn_points = null
@@ -57,7 +58,7 @@ func _process(delta):
 			popup.get_node("Button_quit").connect("pressed", self, "popup_quit")	#connect button quit to go back to main menu
 			popup.connect("popup_hide", self, "popup_closed")						#connect button hide to hide the popup
 			popup.get_node("Button_resume").connect("pressed", self, "popup_closed")#connect resume to resume the game
-
+			popup.get_node("Button_finish").connect("pressed", self, "popup_finish")	#connect button quit to go back to main menu
 			canvas_layer.add_child(popup)											#add popup screen to canvas
 			popup.popup_centered()													#starting position for the popup is in the centre of the screen
 
@@ -84,6 +85,18 @@ func popup_quit():																	#if quit pressed, resume the game, make the m
 		popup = null
 
 	load_new_scene(MAIN_MENU_PATH)
+
+func popup_finish():																	#if quit pressed, resume the game, make the mouse visible, delete the popup and go back to main menu
+	get_tree().paused = false
+
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+	if popup != null:
+		popup.queue_free()
+		popup = null
+
+	load_new_scene(FINISH_PATH)
+
 
 func get_respawn_position():														#set respawn points
 	if respawn_points == null:														#if there are no respawn point, make the x=0,y=0,z=0 default

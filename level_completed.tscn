@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://level_completed.gd" type="Script" id=1]
+[ext_resource path="res://assets/Titillium-Regular.otf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+outline_size = 4
+outline_color = Color( 0.909804, 0.490196, 0.490196, 1 )
+extra_spacing_top = 5
+extra_spacing_bottom = 5
+extra_spacing_char = 3
+extra_spacing_space = 6
+font_data = ExtResource( 2 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+replay = "res://main_level.tscn"
+main = "res://Main_Menu.tscn"
+
+[node name="end" type="Panel" parent="."]
+margin_left = -1.5874
+margin_top = -1.5874
+margin_right = 1278.41
+margin_bottom = 718.413
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="end"]
+margin_left = 426.0
+margin_top = 310.0
+margin_right = 940.0
+margin_bottom = 391.0
+custom_fonts/font = SubResource( 1 )
+text = "Misson Completed"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="replay" type="Button" parent="end"]
+margin_left = 640.0
+margin_top = 380.0
+margin_right = 740.0
+margin_bottom = 420.0
+text = "Replay"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="main_menu" type="Button" parent="end"]
+margin_left = 640.0
+margin_top = 430.0
+margin_right = 740.0
+margin_bottom = 470.0
+text = "Main Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -116,6 +116,7 @@ shape = SubResource( 3 )
 
 [node name="Wall_1" type="MeshInstance" parent="Box"]
 transform = Transform( 4.35478, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -118.629, 37.0752, 39.6568 )
+visible = false
 cast_shadow = 2
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
@@ -366,7 +367,7 @@ transform = Transform( -0.0451538, 0, 0.99898, 0, 1, 0, -0.99898, 0, -0.0451538,
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0952, 1.63605, 32.3559 )
 
 [node name="Crago crate" parent="." instance=ExtResource( 9 )]
-transform = Transform( 2.52935, 0, 0, 0, 2.52935, 0, 0, 0, 2.52935, -152.233, -0.553505, 4.65498 )
+transform = Transform( 2.52935, 0, 0, 0, 2.52935, 0, 0, 0, 2.52935, -152.233, -2.97885, 4.65498 )
 
 [node name="bear" parent="." instance=ExtResource( 8 )]
 transform = Transform( -0.0217974, 0, 0.999762, 0, 1, 0, -0.999762, 0, -0.0217974, -144.05, 1.24446, 4.10721 )
