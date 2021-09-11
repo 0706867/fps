@@ -58,7 +58,7 @@ func _process(delta):
 			popup.get_node("Button_quit").connect("pressed", self, "popup_quit")	#connect button quit to go back to main menu
 			popup.connect("popup_hide", self, "popup_closed")						#connect button hide to hide the popup
 			popup.get_node("Button_resume").connect("pressed", self, "popup_closed")#connect resume to resume the game
-			popup.get_node("Button_finish").connect("pressed", self, "popup_finish")	#connect button quit to go back to main menu
+			popup.get_node("Button_finish").connect("pressed", self, "popup_finish")#connect button_finish in popup screen to finish function below
 			canvas_layer.add_child(popup)											#add popup screen to canvas
 			popup.popup_centered()													#starting position for the popup is in the centre of the screen
 
@@ -86,7 +86,7 @@ func popup_quit():																	#if quit pressed, resume the game, make the m
 
 	load_new_scene(MAIN_MENU_PATH)
 
-func popup_finish():																	#if quit pressed, resume the game, make the mouse visible, delete the popup and go back to main menu
+func popup_finish():																	#if finish is called, run the level_completed scene
 	get_tree().paused = false
 
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
