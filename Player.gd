@@ -2,16 +2,16 @@ extends KinematicBody
 
 const GRAVITY = -24.8																#how hard the player is pulled to the ground
 var vel = Vector3()																	#player velocity
-const MAX_SPEED = 20																#maximum speed the player can travel
+const MAX_SPEED = 50																#maximum speed the player can travel
 const JUMP_SPEED = 18																#speed when jumping
 const ACCEL = 4.5																	#player's speed of acceleration
-const MAX_SPRINT_SPEED = 70															#maximum speed while sprinting
-const SPRINT_ACCEL = 18																#acceleration when spriniting
+const MAX_SPRINT_SPEED = 80															#maximum speed while sprinting
+const SPRINT_ACCEL = 20																#acceleration when spriniting
 var is_sprinting = false															#is the player sprinting?
 var reloading_weapon = false														#is the player reloading a weapon?
 var flashlight																		#placeholder for a flashlight
 var dir = Vector3()																	#direction of an object in a (vector)3 dimentional space
-const DEACCEL= 16																	# rate of deceleration
+const DEACCEL= 15																	# rate of deceleration
 const MAX_SLOPE_ANGLE = 40															#maximum angle the player can climb
 var camera																			#PH for camera
 var rotation_helper																	#helps the player rotate locally without moving the global body

@@ -1,10 +1,9 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://DefaultMaterial.material" type="Material" id=1]
 [ext_resource path="res://textures/Door 2 cargo 2.png" type="Texture" id=2]
 [ext_resource path="res://textures/Cargo side redish.png" type="Texture" id=3]
 [ext_resource path="res://textures/Door 2 cargo 1.png" type="Texture" id=4]
-[ext_resource path="res://textures/Cargo texture back (Small).png" type="Texture" id=5]
 [ext_resource path="res://textures/Cargo roof and floor rdish.png" type="Texture" id=6]
 
 [sub_resource type="ArrayMesh" id=1]
@@ -22,17 +21,17 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
-[sub_resource type="SpatialMaterial" id=11]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_texture = ExtResource( 2 )
-
-[sub_resource type="BoxShape" id=2]
-
-[sub_resource type="SpatialMaterial" id=12]
-albedo_texture = ExtResource( 4 )
 
 [sub_resource type="BoxShape" id=3]
 
-[sub_resource type="ArrayMesh" id=4]
+[sub_resource type="SpatialMaterial" id=4]
+albedo_texture = ExtResource( 4 )
+
+[sub_resource type="BoxShape" id=5]
+
+[sub_resource type="ArrayMesh" id=6]
 surfaces/0 = {
 "aabb": AABB( -14.8136, -0.564828, -40.6251, 29.6273, 0.0669249, 58.6695 ),
 "array_data": PoolByteArray( 158, 4, 109, 65, 139, 152, 16, 191, 18, 91, 144, 65, 0, 129, 0, 0, 129, 0, 0, 129, 0, 0, 0, 60, 166, 4, 109, 193, 109, 152, 16, 191, 114, 90, 144, 65, 0, 129, 0, 0, 129, 0, 0, 129, 0, 60, 0, 60, 160, 4, 109, 193, 109, 152, 16, 191, 15, 128, 34, 194, 0, 129, 0, 0, 129, 0, 0, 129, 0, 60, 0, 0, 172, 4, 109, 65, 138, 152, 16, 191, 189, 127, 34, 194, 0, 129, 0, 0, 129, 0, 0, 129, 0, 0, 0, 0, 154, 4, 109, 65, 88, 237, 254, 190, 28, 91, 144, 65, 0, 127, 0, 0, 0, 0, 129, 129, 0, 0, 0, 60, 164, 4, 109, 65, 88, 237, 254, 190, 190, 127, 34, 194, 0, 127, 0, 0, 0, 0, 129, 129, 0, 60, 0, 60, 156, 4, 109, 193, 28, 237, 254, 190, 15, 128, 34, 194, 0, 127, 0, 0, 0, 0, 129, 129, 0, 60, 0, 0, 176, 4, 109, 193, 28, 237, 254, 190, 114, 90, 144, 65, 0, 127, 0, 0, 0, 0, 129, 129, 0, 0, 0, 0, 158, 4, 109, 65, 139, 152, 16, 191, 18, 91, 144, 65, 0, 0, 127, 0, 0, 127, 0, 129, 0, 0, 0, 60, 154, 4, 109, 65, 88, 237, 254, 190, 28, 91, 144, 65, 0, 0, 127, 0, 0, 127, 0, 129, 0, 60, 0, 60, 176, 4, 109, 193, 28, 237, 254, 190, 114, 90, 144, 65, 0, 0, 127, 0, 0, 127, 0, 129, 0, 60, 0, 0, 166, 4, 109, 193, 109, 152, 16, 191, 114, 90, 144, 65, 0, 0, 127, 0, 0, 127, 0, 129, 0, 0, 0, 0, 166, 4, 109, 193, 109, 152, 16, 191, 114, 90, 144, 65, 129, 0, 0, 0, 0, 127, 0, 129, 0, 0, 0, 60, 176, 4, 109, 193, 28, 237, 254, 190, 114, 90, 144, 65, 129, 0, 0, 0, 0, 127, 0, 129, 0, 60, 0, 60, 156, 4, 109, 193, 28, 237, 254, 190, 15, 128, 34, 194, 129, 0, 0, 0, 0, 127, 0, 129, 0, 60, 0, 0, 160, 4, 109, 193, 109, 152, 16, 191, 15, 128, 34, 194, 129, 0, 0, 0, 0, 127, 0, 129, 0, 0, 0, 0, 160, 4, 109, 193, 109, 152, 16, 191, 15, 128, 34, 194, 0, 0, 129, 0, 0, 127, 0, 129, 0, 0, 0, 60, 156, 4, 109, 193, 28, 237, 254, 190, 15, 128, 34, 194, 0, 0, 129, 0, 0, 127, 0, 129, 0, 60, 0, 60, 164, 4, 109, 65, 88, 237, 254, 190, 190, 127, 34, 194, 0, 0, 129, 0, 0, 127, 0, 129, 0, 60, 0, 0, 172, 4, 109, 65, 138, 152, 16, 191, 189, 127, 34, 194, 0, 0, 129, 0, 0, 127, 0, 129, 0, 0, 0, 0, 154, 4, 109, 65, 88, 237, 254, 190, 28, 91, 144, 65, 127, 0, 0, 0, 0, 129, 0, 129, 0, 0, 0, 60, 158, 4, 109, 65, 139, 152, 16, 191, 18, 91, 144, 65, 127, 0, 0, 0, 0, 129, 0, 129, 0, 60, 0, 60, 172, 4, 109, 65, 138, 152, 16, 191, 189, 127, 34, 194, 127, 0, 0, 0, 0, 129, 0, 129, 0, 60, 0, 0, 164, 4, 109, 65, 88, 237, 254, 190, 190, 127, 34, 194, 127, 0, 0, 0, 0, 129, 0, 129, 0, 0, 0, 0 ),
@@ -47,100 +46,84 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
-[sub_resource type="SpatialMaterial" id=13]
+[sub_resource type="SpatialMaterial" id=7]
 albedo_texture = ExtResource( 3 )
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape" id=8]
 extents = Vector3( 14.9643, 0.0230698, 28.873 )
 
-[sub_resource type="SpatialMaterial" id=14]
-albedo_texture = ExtResource( 5 )
-
-[sub_resource type="BoxShape" id=6]
-extents = Vector3( 1, 1.00923, 1 )
-
-[sub_resource type="SpatialMaterial" id=15]
+[sub_resource type="SpatialMaterial" id=9]
 albedo_texture = ExtResource( 6 )
-
-[sub_resource type="BoxShape" id=9]
-
-[sub_resource type="SpatialMaterial" id=16]
-albedo_texture = ExtResource( 6 )
-
-[sub_resource type="SpatialMaterial" id=17]
-albedo_texture = ExtResource( 3 )
 
 [sub_resource type="BoxShape" id=10]
+
+[sub_resource type="SpatialMaterial" id=11]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="BoxShape" id=13]
 
 [node name="Crago crate" type="Spatial"]
 
 [node name="Cube006" type="MeshInstance" parent="."]
 transform = Transform( 1.20896, -0.0534294, -4.93361e-06, 2.67084e-06, 3.20402e-07, -3.641, -1.05939, -0.0609729, -1.48096e-05, 8.37857, 4.34484, 1.6886 )
 mesh = SubResource( 1 )
-material/0 = SubResource( 11 )
+material/0 = SubResource( 2 )
 
 [node name="StaticBody" type="StaticBody" parent="Cube006"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Cube006/StaticBody"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Cube005" type="MeshInstance" parent="."]
 transform = Transform( 1.11796, 0.0581862, 6.90567e-08, 1.77569e-07, -6.52943e-09, -3.64131, 1.15439, -0.0563504, 4.93232e-07, 8.34549, 4.3381, -4.33073 )
 mesh = SubResource( 1 )
-material/0 = SubResource( 12 )
+material/0 = SubResource( 4 )
 
 [node name="StaticBody" type="StaticBody" parent="Cube005"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Cube005/StaticBody"]
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="Cube2" type="MeshInstance" parent="."]
 transform = Transform( 0.506165, -2.47557e-12, -4.17485e-07, -1.52458e-06, -8.21896e-07, -0.138606, 0, -5.04476, 2.25818e-08, -0.154987, 2.35405, 0 )
-mesh = SubResource( 4 )
-material/0 = SubResource( 13 )
+mesh = SubResource( 6 )
+material/0 = SubResource( 7 )
 
 [node name="StaticBody" type="StaticBody" parent="Cube2"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Cube2/StaticBody"]
 transform = Transform( 1, 1.19384e-17, 7.95808e-13, 4.74339e-20, 1, 0, -2.61179e-25, -9.09495e-13, 1, -9.11951e-06, -0.542697, -11.0683 )
-shape = SubResource( 5 )
-
-[node name="Cube004" type="MeshInstance" parent="."]
-transform = Transform( -0.0935856, 6.02225e-14, -3.49889e-07, 8.18151e-09, 6.88864e-07, -4.00226, 0, 4.22822, 6.52052e-07, -7.59726, 4.00078, -1.34558 )
-mesh = SubResource( 1 )
-material/0 = SubResource( 14 )
-
-[node name="StaticBody" type="StaticBody" parent="Cube004"]
-
-[node name="CollisionShape" type="CollisionShape" parent="Cube004/StaticBody"]
-shape = SubResource( 6 )
+shape = SubResource( 8 )
 
 [node name="Cube007" type="MeshInstance" parent="."]
 transform = Transform( 7.41067, 0, 0, 0, -6.76842e-07, 0.179568, 0, -4.15443, -2.92553e-08, -0.106034, 0.0970755, -1.40516 )
 mesh = SubResource( 1 )
-material/0 = SubResource( 15 )
+material/0 = SubResource( 9 )
 
 [node name="StaticBody" type="StaticBody" parent="Cube007"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Cube007/StaticBody"]
-shape = SubResource( 9 )
+shape = SubResource( 10 )
 
 [node name="Cube008" type="MeshInstance" parent="."]
 transform = Transform( 7.41067, 0, 0, 0, -6.76842e-07, 0.179568, 0, -4.15443, -2.92553e-08, -0.106034, 7.81976, -1.40516 )
 mesh = SubResource( 1 )
-material/0 = SubResource( 16 )
+material/0 = SubResource( 11 )
 
 [node name="StaticBody" type="StaticBody" parent="Cube008"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Cube008/StaticBody"]
-shape = SubResource( 9 )
+shape = SubResource( 10 )
 
 [node name="Cube003" type="MeshInstance" parent="."]
 transform = Transform( -7.86951e-07, -7.44091, -9.08457e-08, -4.04172, 1.44881e-06, -2.58429e-07, 7.35562e-06, 4.76038e-06, -0.142, -0.0961004, 3.9513, -5.44649 )
 mesh = SubResource( 1 )
-material/0 = SubResource( 17 )
+material/0 = SubResource( 12 )
 
 [node name="StaticBody" type="StaticBody" parent="Cube003"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Cube003/StaticBody"]
-shape = SubResource( 10 )
+shape = SubResource( 13 )
