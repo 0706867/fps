@@ -4168,30 +4168,37 @@ transform = Transform( 1, 0, 0, 0, 0.983001, 0.1836, 0, -0.1836, 0.983001, 0, -0
 [node name="HUD" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 0.297363
+margin_top = 1.18921
+margin_right = 0.297363
+margin_bottom = 1.18921
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Crosshair" type="Control" parent="HUD"]
-modulate = Color( 1, 1, 1, 0.705882 )
+modulate = Color( 0, 1, 0.976563, 0.705882 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -21.0
-margin_top = -21.0
-margin_right = 21.0
-margin_bottom = 21.0
+margin_left = -15.0
+margin_top = -35.0
+margin_right = 25.0
+margin_bottom = 5.00006
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="Bottom_IMG" type="TextureRect" parent="HUD/Crosshair"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -2.5
-margin_top = 4.5
-margin_right = 2.5
-margin_bottom = 20.5
+margin_left = -1.0
+margin_top = 2.0
+margin_right = 1.0
+margin_bottom = 6.0
 texture = ExtResource( 7 )
 expand = true
 
@@ -4200,10 +4207,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -2.5
-margin_top = -20.5
-margin_right = 2.5
-margin_bottom = -4.5
+margin_left = -1.0
+margin_top = -4.0
+margin_right = 1.0
 texture = ExtResource( 7 )
 expand = true
 
@@ -4212,10 +4218,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -4.5
-margin_top = -2.5
-margin_right = 0.5
-margin_bottom = 12.5
+margin_left = -1.073
+margin_top = -0.271667
+margin_right = 0.927002
+margin_bottom = 3.72833
 rect_rotation = 90.0
 texture = ExtResource( 7 )
 expand = true
@@ -4225,10 +4231,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 19.5
-margin_top = -2.5
-margin_right = 24.5
-margin_bottom = 12.5
+margin_left = 5.0
+margin_top = 1.90735e-06
+margin_right = 7.0
+margin_bottom = 4.0
 rect_rotation = 90.0
 texture = ExtResource( 7 )
 expand = true

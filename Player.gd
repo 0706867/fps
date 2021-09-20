@@ -2,7 +2,7 @@ extends KinematicBody
 
 const GRAVITY = -70																#how hard the player is pulled to the ground
 var vel = Vector3()																	#player velocity
-const MAX_SPEED = 40																#maximum speed the player can travel
+const MAX_SPEED = 35																#maximum speed the player can travel
 const JUMP_SPEED = 35																#speed when jumping
 const ACCEL = 4.5																	#player's speed of acceleration
 const MAX_SPRINT_SPEED = 60															#maximum speed while sprinting
