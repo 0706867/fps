@@ -44,6 +44,7 @@ const RESPAWN_TIME = 4																#time required to respawn after death
 var dead_time = 0																	#how long has the player been dead
 var is_dead = false																	#is the player dead?
 var globals
+export (String, FILE) var endgame
 
 func _ready():																		#function called when the project starts
 #assign names to nodes
@@ -294,6 +295,12 @@ func process_input(delta):															#processes input types
 	if grabbed_object != null:														#if something is being grabbed, set its location and rotation
 		grabbed_object.global_transform.origin = camera.global_transform.origin + (-camera.global_transform.basis.z.normalized() * OBJECT_GRAB_DISTANCE)
 # ----------------------------------
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		print("I collided with ", get_slide_collision(i).collider.name)
+		if collision.collider.name == "endzone" and Input.is_action_just_pressed("ui_end"):
+			get_node("/root/Globals").load_new_scene(endgame)
+
 
 func process_movement(delta):                                                    #handles the movement / lets the player move
 	dir.y = 0
