@@ -46,4 +46,4 @@ endgame = "res://level_completed.tscn"
 environment = SubResource( 2 )
 
 [node name="Testing_Area" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.9378, 3.2775, 5.50961 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5904, 2.24083, 0.976457 )

@@ -295,11 +295,12 @@ func process_input(delta):															#processes input types
 	if grabbed_object != null:														#if something is being grabbed, set its location and rotation
 		grabbed_object.global_transform.origin = camera.global_transform.origin + (-camera.global_transform.basis.z.normalized() * OBJECT_GRAB_DISTANCE)
 # ----------------------------------
-	for i in get_slide_count():
+	for i in get_slide_count():														#gets teh colliders player is interacting with
 		var collision = get_slide_collision(i)
-		print("I collided with ", get_slide_collision(i).collider.name)
-		if collision.collider.name == "endzone" and Input.is_action_just_pressed("ui_end"):
+		if collision.collider.name == "endzone":									#if named endzone, scene changes to endgame
 			get_node("/root/Globals").load_new_scene(endgame)
+	
+	print(Globals.enemy_amount)
 
 
 func process_movement(delta):                                                    #handles the movement / lets the player move

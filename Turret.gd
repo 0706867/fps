@@ -95,6 +95,8 @@ func _physics_process(delta):
 		else:																		#if the destroyed tiemr is 0, heal the turret and stop the smoke particles.
 			turret_health = MAX_TURRET_HEALTH
 			smoke_particles.emitting = false
+	if turret_health >= 0:
+		visible = true 
 
 
 func fire_bullet():
@@ -158,3 +160,5 @@ func bullet_hit(damage, bullet_hit_pos):										#lower health when the turret 
 	if turret_health <= 0:
 		smoke_particles.emitting = true
 		destroyed_timer = DESTROYED_TIME
+		visible = false
+

@@ -26,6 +26,10 @@ var audio_clips = {																	#attach names to audio clips for easier acce
 
 const SIMPLE_AUDIO_PLAYER_SCENE = preload("res://Simple_Audio_Player.tscn")
 var created_audio = []
+
+#enemies 
+var enemy_amount = 0
+
 func _ready():
 	canvas_layer = CanvasLayer.new()												#create a new canvas
 	add_child(canvas_layer)															#puts the new canvas on screen

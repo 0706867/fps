@@ -156,7 +156,7 @@ extents = Vector3( 1.85373, 1.33713, 3.24662 )
 extents = Vector3( 1, 2.17965, 0.672486 )
 
 [sub_resource type="SphereShape" id=8]
-radius = 36.0
+radius = 53.142
 
 [sub_resource type="ParticlesMaterial" id=9]
 emission_shape = 1
@@ -250,6 +250,7 @@ shape = SubResource( 7 )
 
 [node name="Vision_Area" type="Area" parent="."]
 input_ray_pickable = false
+linear_damp = 0.0
 angular_damp = 1.0
 
 [node name="Collision_Shape" type="CollisionShape" parent="Vision_Area"]

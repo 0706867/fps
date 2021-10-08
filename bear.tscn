@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://bear.fbx" type="PackedScene" id=1]
 [ext_resource path="res://textures/bear_texture.png" type="Texture" id=2]
@@ -6,8 +6,11 @@
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 2 )
 
+[sub_resource type="PhysicsMaterial" id=3]
+
 [sub_resource type="CapsuleShape" id=2]
-height = 2.94097
+radius = 1.42112
+height = 2.25412
 
 [node name="bear" instance=ExtResource( 1 )]
 
@@ -15,7 +18,8 @@ height = 2.94097
 material/0 = SubResource( 1 )
 
 [node name="StaticBody" type="StaticBody" parent="bear2" index="0"]
+physics_material_override = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="bear2/StaticBody" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.72288, -0.11624 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.72288, -0.24457 )
 shape = SubResource( 2 )
