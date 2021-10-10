@@ -290,7 +290,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.433678, 34.3989, 37.887 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0952, 1.63605, 32.3559 )
 
 [node name="bear" parent="Box/Enemies" instance=ExtResource( 8 )]
-transform = Transform( -3.25841e-07, 2, 3.25841e-07, 0, -3.25841e-07, 2, 2, 3.25841e-07, 5.30863e-14, -152.283, 4.97644, 4.10721 )
+transform = Transform( -8.74228e-08, 2, 8.74228e-08, 0, -8.74228e-08, 2, 2, 8.74228e-08, 3.82137e-15, -152.283, 6, 18.2998 )
 
 [node name="bear2" parent="Box/Enemies" instance=ExtResource( 8 )]
 transform = Transform( -3.25841e-07, 2, 3.25841e-07, 0, -3.25841e-07, 2, 2, 3.25841e-07, 5.30863e-14, -268.969, 4.97646, 20.7766 )
@@ -307,6 +307,7 @@ transform = Transform( -0.0451538, 0, 0.99898, 0, 1, 0, -0.99898, 0, -0.0451538,
 transform = Transform( -0.0451538, 0, 0.99898, 0, 1, 0, -0.99898, 0, -0.0451538, 29.2044, 7.5481, 9.57138 )
 
 [node name="Stairs" type="Spatial" parent="Box"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.46988, 0 )
 
 [node name="Stairs_1" type="Spatial" parent="Box/Stairs"]
 

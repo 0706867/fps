@@ -4268,6 +4268,9 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Health: 100
 Ammo: 000/000
 "
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Death_Screen" type="ColorRect" parent="HUD"]
 visible = false
