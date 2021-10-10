@@ -297,10 +297,9 @@ func process_input(delta):															#processes input types
 # ----------------------------------
 	for i in get_slide_count():														#gets teh colliders player is interacting with
 		var collision = get_slide_collision(i)
-		if collision.collider.name == "endzone":									#if named endzone, scene changes to endgame
+		if collision.collider.name == "endzone" and Globals.enemy_amount <= 0:									#if named endzone, scene changes to endgame
 			get_node("/root/Globals").load_new_scene(endgame)
-	
-	print(Globals.enemy_amount)
+
 
 
 func process_movement(delta):                                                    #handles the movement / lets the player move
@@ -400,15 +399,17 @@ func fire_bullet():																	#lets the player fire bullets
 
 func process_UI(delta):																#controls User Interface for the player
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":			#gets variables and converts them to strings, which lets the canvas display it 
-		# First line: Health, second line: Grenades
+		# First line: Health, second line: Grenades, third line: enemies
 		UI_status_label.text = "HEALTH: " + str(health) + \
-			"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
+			"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade]) + \
+			"\nEnemies: " + str(Globals.enemy_amount)
 	else:
 		var current_weapon = weapons[current_weapon_name]
-		# First line: Health, second line: weapon and ammo, third line: grenades
+		# First line: Health, second line: weapon and ammo, third line: grenades, fourth line: enemies
 		UI_status_label.text = "HEALTH: " + str(health) + \
 			"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo) + \
-			"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
+			"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade]) + \
+			"\nEnemies: " + str(Globals.enemy_amount)
 
 func process_reloading(delta):														#lets the player reload
 	if reloading_weapon == true:													#if weapon is able to reload

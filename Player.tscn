@@ -3889,7 +3889,7 @@ corner_detail = 3
 anti_aliasing = false
 
 [sub_resource type="DynamicFont" id=25]
-size = 42
+size = 32
 use_filter = true
 font_data = ExtResource( 8 )
 
@@ -4245,6 +4245,9 @@ margin_top = 560.0
 margin_right = 370.0
 margin_bottom = 720.0
 custom_styles/panel = SubResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Panel_border" type="Panel" parent="HUD/Panel"]
 modulate = Color( 0.679688, 0.679688, 0.679688, 1 )

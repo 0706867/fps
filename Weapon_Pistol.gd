@@ -1,6 +1,6 @@
 extends Spatial
 
-const DAMAGE = 100
+const DAMAGE = 10
 var ammo_in_weapon = 10
 var spare_ammo = 20
 const AMMO_IN_MAG = 10

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://textures/floor.jpg" type="Texture" id=1]
 [ext_resource path="res://RigidBody_hit_test.gd" type="Script" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://walls.tres" type="Material" id=10]
 [ext_resource path="res://floor.tres" type="Material" id=11]
 [ext_resource path="res://Crago crate through.tscn" type="PackedScene" id=12]
-[ext_resource path="res://bear.gd" type="Script" id=13]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -257,10 +256,10 @@ transform = Transform( -1.61328, 0, 1.18208, 0, 2, 0, -1.18208, 0, -1.61328, -34
 transform = Transform( 1.96325, 0, 0.381618, 0, 2, 0, -0.381618, 0, 1.96325, -170.208, 0.518414, 0.0898361 )
 
 [node name="Crago crate7" parent="Box/crate" instance=ExtResource( 12 )]
-transform = Transform( 0.668962, 0, 1.8848, 0, 2, 0, -1.8848, 0, 0.668962, -400.996, 0.518414, 117.733 )
+transform = Transform( 0.668964, 0, -1.8848, 0, 2, 0, -1.8848, 0, -0.668964, -400.996, 0.518414, 117.733 )
 
 [node name="Crago crate8" parent="Box/crate" instance=ExtResource( 12 )]
-transform = Transform( 1.98546, 0, 0.240689, 0, 2, 0, -0.240689, 0, 1.98546, -354.126, 0.518414, 10.6501 )
+transform = Transform( 1.98546, 0, -0.24069, 0, 2, 0, -0.24069, 0, -1.98546, -354.126, 0.518414, 10.6501 )
 
 [node name="targets" type="Spatial" parent="Box"]
 
@@ -292,15 +291,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0952, 1.63605, 32.3559 )
 
 [node name="bear" parent="Box/Enemies" instance=ExtResource( 8 )]
 transform = Transform( -3.25841e-07, 2, 3.25841e-07, 0, -3.25841e-07, 2, 2, 3.25841e-07, 5.30863e-14, -152.283, 4.97644, 4.10721 )
-script = ExtResource( 13 )
 
 [node name="bear2" parent="Box/Enemies" instance=ExtResource( 8 )]
 transform = Transform( -3.25841e-07, 2, 3.25841e-07, 0, -3.25841e-07, 2, 2, 3.25841e-07, 5.30863e-14, -268.969, 4.97646, 20.7766 )
-script = ExtResource( 13 )
 
 [node name="bear3" parent="Box/Enemies" instance=ExtResource( 8 )]
 transform = Transform( -3.25841e-07, 2, 3.25841e-07, 0, -3.25841e-07, 2, 2, 3.25841e-07, 5.30863e-14, -407.109, 4.97648, 118.356 )
-script = ExtResource( 13 )
 
 [node name="Pickups" type="Spatial" parent="Box"]
 
