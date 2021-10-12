@@ -106,7 +106,7 @@ func get_respawn_position():														#set respawn points
 	if respawn_points == null:														#if there are no respawn point, make the x=0,y=0,z=0 default
 		return Vector3(0, 0, 0)
 	else:																			#if its not empty, get the positions and set up the spawn points
-		var respawn_point = rand_range(0, respawn_points.size() - 1)
+		var respawn_point = int(rand_range(0, respawn_points.size()-1))
 		return respawn_points[respawn_point].global_transform.origin
 
 func play_sound(sound_name, loop_sound=false, sound_position=null):					#play the audio clip given, dont loop it (can be enabled) and dont has a position for audio(required for 3d audio)

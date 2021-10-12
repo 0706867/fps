@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://textures/floor.jpg" type="Texture" id=1]
 [ext_resource path="res://RigidBody_hit_test.gd" type="Script" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Target.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Health_Pickup.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Turret.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/Ruin_Level_Objects/Respawn_Point_Setter.gd" type="Script" id=7]
 [ext_resource path="res://bear.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Crago crate.tscn" type="PackedScene" id=9]
 [ext_resource path="res://walls.tres" type="Material" id=10]
@@ -76,6 +75,7 @@ albedo_texture = ExtResource( 1 )
 [sub_resource type="PhysicsMaterial" id=23]
 
 [node name="Testing_Area" type="Spatial"]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0, 0, 0 )
 
 [node name="Box" type="Spatial" parent="."]
 
@@ -262,6 +262,7 @@ transform = Transform( 0.668964, 0, -1.8848, 0, 2, 0, -1.8848, 0, -0.668964, -40
 transform = Transform( 1.98546, 0, -0.24069, 0, 2, 0, -0.24069, 0, -1.98546, -354.126, 0.518414, 10.6501 )
 
 [node name="targets" type="Spatial" parent="Box"]
+visible = false
 
 [node name="Target_Whole" parent="Box/targets" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.0344, 45.7446, 37.4923 )
@@ -287,16 +288,16 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.433678, 34.3989, 37.887 )
 [node name="Enemies" type="Spatial" parent="Box"]
 
 [node name="Turret" parent="Box/Enemies" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0952, 1.63605, 32.3559 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -354.137, 17.2719, 13.6782 )
 
 [node name="bear" parent="Box/Enemies" instance=ExtResource( 8 )]
-transform = Transform( 2.38498e-08, 0, -2, 0, 2, 0, 2, 0, 2.38498e-08, -152.283, 1.13856, 18.3 )
+transform = Transform( 0.03815, 0, 1.99964, 0, 2, 0, -1.99964, 0, 0.03815, -152.143, 1.13856, 27.8738 )
 
 [node name="bear2" parent="Box/Enemies" instance=ExtResource( 8 )]
-transform = Transform( -3.25841e-07, 0, -2, 0, 2, 0, 2, 0, -3.25841e-07, -268.969, 4.97646, 20.7766 )
+transform = Transform( -1.16638, 0, 1.62467, 0, 2, 0, -1.62467, 0, -1.16638, -268.625, 1.4064, 21.4192 )
 
 [node name="bear3" parent="Box/Enemies" instance=ExtResource( 8 )]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -407.15, 5.22285, 118.274 )
+transform = Transform( -2, 0, -6.51683e-07, 0, 2, 0, 6.51683e-07, 0, -2, -418.116, 0.257091, 118.274 )
 
 [node name="Pickups" type="Spatial" parent="Box"]
 
@@ -312,7 +313,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.46988, 0 )
 [node name="Stairs_1" type="Spatial" parent="Box/Stairs"]
 
 [node name="Floor_plane4" type="MeshInstance" parent="Box/Stairs/Stairs_1"]
-transform = Transform( 18.1262, 0.422618, 0, -8.45237, 0.906308, 0, 0, 0, 10, -153.927, 9, -38.955 )
+transform = Transform( 18.1262, 0.422618, 0, -8.45237, 0.906308, 0, 0, 0, 10, -153.531, 9.84945, -38.955 )
 mesh = SubResource( 6 )
 skin = SubResource( 2 )
 material/0 = ExtResource( 11 )
@@ -324,7 +325,7 @@ transform = Transform( 1, 1.86265e-09, 8.47033e-22, -4.76837e-07, 1, 4.54747e-13
 shape = SubResource( 3 )
 
 [node name="Floor_plane6" type="MeshInstance" parent="Box/Stairs/Stairs_1"]
-transform = Transform( 18.1262, -0.422618, 0, 8.45237, 0.906308, 0, 0, 0, 10, -268.48, 8.63668, -38.955 )
+transform = Transform( 18.1262, -0.422618, 0, 8.45237, 0.906308, 0, 0, 0, 10, -268.85, 9.85613, -38.955 )
 mesh = SubResource( 6 )
 skin = SubResource( 2 )
 material/0 = ExtResource( 11 )
@@ -332,11 +333,11 @@ material/0 = ExtResource( 11 )
 [node name="StaticBody" type="StaticBody" parent="Box/Stairs/Stairs_1/Floor_plane6"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Box/Stairs/Stairs_1/Floor_plane6/StaticBody"]
-transform = Transform( 1, 1.86265e-09, 8.47033e-22, -4.76837e-07, 1, 4.54747e-13, -6.77626e-21, 0, 1, 0, 0, 0 )
+transform = Transform( 1, 0, 0, -4.76837e-07, 1, 4.54747e-13, -6.77626e-21, 0, 1, 0, 0, 0 )
 shape = SubResource( 3 )
 
 [node name="Floor_plane5" type="MeshInstance" parent="Box/Stairs/Stairs_1"]
-transform = Transform( 40, 0, 0, 0, 1, 0, 0, 0, 10, -211, 17, -38.955 )
+transform = Transform( 40, 0, 0, 0, 1, 0, 0, 0, 10, -211.182, 18.2091, -38.955 )
 mesh = SubResource( 6 )
 skin = SubResource( 2 )
 material/0 = ExtResource( 11 )
@@ -348,7 +349,7 @@ transform = Transform( 1, 1.72133e-23, 0, 1.81899e-12, 1, 4.54747e-13, -6.77626e
 shape = SubResource( 3 )
 
 [node name="Stairs_2" type="Spatial" parent="Box/Stairs"]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -352.152, 0, 142.131 )
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -348.806, 0, 142.131 )
 
 [node name="Floor_plane4" type="MeshInstance" parent="Box/Stairs/Stairs_2"]
 transform = Transform( 18.1262, 0.422618, 0, -8.45237, 0.906308, 0, 0, 0, 10, 43.5708, 9, -12.5954 )
@@ -385,15 +386,6 @@ material/0 = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Box/Stairs/Stairs_2/Floor_plane5/StaticBody"]
 transform = Transform( 1, 1.72133e-23, 0, 1.81899e-12, 1, 4.54747e-13, -6.77626e-21, 0, 1, 0, 0, 0 )
 shape = SubResource( 3 )
-
-[node name="Spawn_Points" type="Spatial" parent="."]
-script = ExtResource( 7 )
-
-[node name="Position3D" type="Position3D" parent="Spawn_Points"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -370.627, 8.05368, 258.889 )
-
-[node name="Position3D2" type="Position3D" parent="Spawn_Points"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -349.142, 1.52588e-05, -19.4111 )
 
 [node name="Cubes" type="Spatial" parent="."]
 visible = false
@@ -604,7 +596,7 @@ material/0 = SubResource( 16 )
 [node name="endzone" type="Spatial" parent="."]
 
 [node name="endzone" type="MeshInstance" parent="endzone"]
-transform = Transform( 30, 0, 0, 0, 1, 0, 0, 0, 50, -239.243, 0.237894, 299.431 )
+transform = Transform( 30, 0, 0, 0, 1, 0, 0, 0, 50, -157.43, 0.237894, 299.431 )
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
 material/0 = SubResource( 22 )

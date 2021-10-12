@@ -48,7 +48,6 @@ export (String, FILE) var endgame
 var zoom
 
 func _ready():																		#function called when the project starts
-
 	var zoom = false
 #assign names to nodes
 	camera = $Rotation_Helper/Camera
@@ -97,6 +96,7 @@ func _physics_process(delta):														#handles physics and other processes
 #always show UI and let the player respawn
 	process_UI(delta)
 	process_respawn(delta)
+
 
 
 func process_input(delta):															#processes input types
