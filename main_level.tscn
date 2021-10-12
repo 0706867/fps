@@ -39,11 +39,11 @@ adjustment_enabled = true
 [node name="Testing_Area" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92511, 0.868744, 3.80719 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -259.827, 0.868744, 3.80719 )
 endgame = "res://level_completed.tscn"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 
 [node name="Testing_Area" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5904, 2.24083, 0.976457 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.48623, 4.3152, 0.143815 )

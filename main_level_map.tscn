@@ -82,7 +82,7 @@ albedo_texture = ExtResource( 1 )
 [node name="Floor" type="Spatial" parent="Box"]
 
 [node name="Floor_plane" type="MeshInstance" parent="Box/Floor"]
-transform = Transform( 200, 0, 0, 0, 1, 0, 0, 0, 50, -150.432, 0, -0.864128 )
+transform = Transform( 200, 0, 0, 0, 1, 0, 0, 0, 50, -150.045, 0, -0.60881 )
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
 material/0 = ExtResource( 11 )
@@ -290,13 +290,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.433678, 34.3989, 37.887 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0952, 1.63605, 32.3559 )
 
 [node name="bear" parent="Box/Enemies" instance=ExtResource( 8 )]
-transform = Transform( -8.74228e-08, 2, 8.74228e-08, 0, -8.74228e-08, 2, 2, 8.74228e-08, 3.82137e-15, -152.283, 6, 18.2998 )
+transform = Transform( -3.25841e-07, 2, 3.25841e-07, 0, -3.25841e-07, 2, 2, 3.25841e-07, 5.30863e-14, -152.283, 6, 18.2998 )
 
 [node name="bear2" parent="Box/Enemies" instance=ExtResource( 8 )]
 transform = Transform( -3.25841e-07, 2, 3.25841e-07, 0, -3.25841e-07, 2, 2, 3.25841e-07, 5.30863e-14, -268.969, 4.97646, 20.7766 )
 
 [node name="bear3" parent="Box/Enemies" instance=ExtResource( 8 )]
-transform = Transform( -3.25841e-07, 2, 3.25841e-07, 0, -3.25841e-07, 2, 2, 3.25841e-07, 5.30863e-14, -407.109, 4.97648, 118.356 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -407.15, 5.22285, 118.274 )
 
 [node name="Pickups" type="Spatial" parent="Box"]
 
@@ -390,10 +390,10 @@ shape = SubResource( 3 )
 script = ExtResource( 7 )
 
 [node name="Position3D" type="Position3D" parent="Spawn_Points"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -370.627, 8.05368, 283.196 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -370.627, 8.05368, 258.889 )
 
 [node name="Position3D2" type="Position3D" parent="Spawn_Points"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -349.142, 1.52588e-05, 297.8 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -349.142, 1.52588e-05, -19.4111 )
 
 [node name="Cubes" type="Spatial" parent="."]
 visible = false
