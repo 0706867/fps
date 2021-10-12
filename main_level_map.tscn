@@ -290,10 +290,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.433678, 34.3989, 37.887 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0952, 1.63605, 32.3559 )
 
 [node name="bear" parent="Box/Enemies" instance=ExtResource( 8 )]
-transform = Transform( -3.25841e-07, 2, 3.25841e-07, 0, -3.25841e-07, 2, 2, 3.25841e-07, 5.30863e-14, -152.283, 6, 18.2998 )
+transform = Transform( 2.38498e-08, 0, -2, 0, 2, 0, 2, 0, 2.38498e-08, -152.283, 1.13856, 18.3 )
 
 [node name="bear2" parent="Box/Enemies" instance=ExtResource( 8 )]
-transform = Transform( -3.25841e-07, 2, 3.25841e-07, 0, -3.25841e-07, 2, 2, 3.25841e-07, 5.30863e-14, -268.969, 4.97646, 20.7766 )
+transform = Transform( -3.25841e-07, 0, -2, 0, 2, 0, 2, 0, -3.25841e-07, -268.969, 4.97646, 20.7766 )
 
 [node name="bear3" parent="Box/Enemies" instance=ExtResource( 8 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -407.15, 5.22285, 118.274 )

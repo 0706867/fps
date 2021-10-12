@@ -4112,7 +4112,7 @@ anims/Rifle_unequip = SubResource( 21 )
 script = ExtResource( 10 )
 
 [node name="Camera" type="Camera" parent="Rotation_Helper"]
-transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, 0, -0.307539, -0.0646362 )
+transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, 0, 0, 0 )
 current = true
 fov = 90.0
 far = 180.0
@@ -4128,11 +4128,11 @@ script = ExtResource( 12 )
 cast_to = Vector3( 0, 0, 80 )
 
 [node name="Knife_Point" type="Spatial" parent="Rotation_Helper/Gun_Fire_Points"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163315, 10.4607, 2.54082 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163315, 9.82503, 2.48216 )
 script = ExtResource( 13 )
 
 [node name="Area" type="Area" parent="Rotation_Helper/Gun_Fire_Points/Knife_Point"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17163, 1.26893 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.229332, -1.17163, 0.0242715 )
 input_ray_pickable = false
 angular_damp = 1.0
 
@@ -4141,7 +4141,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.300034 )
 shape = SubResource( 22 )
 
 [node name="Pistol_Point" type="Spatial" parent="Rotation_Helper/Gun_Fire_Points"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.436506, 11.3604, 4.77607 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.437, 11.23, 0.299 )
 script = ExtResource( 11 )
 
 [node name="Gun_Aim_Point" type="Spatial" parent="Rotation_Helper"]

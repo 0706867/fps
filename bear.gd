@@ -1,41 +1,33 @@
 extends KinematicBody
 
-var speed = 15
-var current_health = 10
-var hit = false
-var collider
-var target
-var timer 
-var turn = false
+var speed = 30																		#bear speed
+var hit = false																		#has the bear been hit
+var collider																		#bears collision shape
+var timer 																			#local timer used for how long bear walks for
+var turn = false																	#has the bear turned
 
 func _ready():
 	Globals.enemy_amount +=1														#adds to total enemy amount in global script
-	current_health = 20																#bear health
-	collider = $CollisionShape
-	timer = 0
-	#location = Vector3(get_parent().transform.origin)
+	collider = $CollisionShape														#connect bears collisionshape to the variable
+	timer = 0																		#reset the timer
+
 
 func _process(delta):
 	move(delta)
-	timer += 0.015 
+	timer += 1 * delta 																#time is being added based on frame rate, which wouldnt be affected by CPU power
 
 
 func move(delta):
-#	var direction = (get_parent().transform.origin).normalized()
-	var direction = Vector3(-2,0,0) 
-	var location_x = Vector3(transform.origin.x + (1*speed), 0,0)
-	move_and_slide(location_x, Vector3())
+	var location_x = Vector3(transform.origin.x + (1*speed), 0,0)					#gets the local x position and add speed to it
+	move_and_slide(location_x, Vector3())											#use the x position for moving
 	
-	if timer >= 2:
-		turn = true
-		if turn:
-			if rotation.y == 0 :
-				rotation.y = 180
-			if rotation.y == 180 :
-				rotation.y = 0
-			speed = -speed
-			timer = 0
-			turn = false
+	if timer >= 2:																	#if timer hits 2 secs
+		turn = true																	#make turn true
+		if turn:																	#if turn in true
+			rotate_object_local(Vector3(0,1,0), deg2rad(180))						#rotate the bear 180 degrees
+			speed = -speed															#walk in opposite direction
+			timer = 0																#reset the timer
+			turn = false															#make turn false, whcih enables this loop to occur
 
 
 func bullet_hit(damage, bullet_pos):															#allows the target to take damage

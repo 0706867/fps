@@ -45,8 +45,11 @@ var dead_time = 0																	#how long has the player been dead
 var is_dead = false																	#is the player dead?
 var globals
 export (String, FILE) var endgame
+var zoom
 
 func _ready():																		#function called when the project starts
+
+	var zoom = false
 #assign names to nodes
 	camera = $Rotation_Helper/Camera
 	rotation_helper = $Rotation_Helper
@@ -206,6 +209,11 @@ func process_input(delta):															#processes input types
 	
 	input_movement_vector = input_movement_vector.normalized()
 
+#zooming in
+	if Input.is_action_pressed("ads") :												#if ads key is preseed (right click)
+		camera.fov = 50																#camera fov will be 50
+	else :																			#if not, (by default)
+		camera.fov = 90																#fov will be 90
 
 
 # Basis vectors are already normalized.
