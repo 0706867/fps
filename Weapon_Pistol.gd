@@ -22,13 +22,14 @@ func fire_weapon():																	#the weapon is using projectiles so every bu
 	var clone = bullet_scene.instance()
 	var scene_root = get_tree().root.get_children()[0]
 	scene_root.add_child(clone)
+	player_node.create_sound("Pistol_shot", player_node.transform.origin)
 
 #sets the location, size, damage, ammo size and the sound of the bullet
 	clone.global_transform = self.global_transform
 	clone.scale = Vector3(4, 4, 4)
 	clone.BULLET_DAMAGE = DAMAGE 
 	ammo_in_weapon -= 1
-	player_node.create_sound("Pistol_shot", self.global_transform.origin)
+
 
 func equip_weapon():
 	#similar to knife animation, using pistol animations

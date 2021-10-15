@@ -37,6 +37,7 @@ var destroyed_timer = 0
 
 var bullet_scene = preload("Bullet_Scene.tscn")
 
+var globals 
 func _ready():
 
 	$Vision_Area.connect("body_entered", self, "body_entered_vision")
@@ -59,6 +60,8 @@ func _ready():
 	smoke_particles.emitting = false
 
 	turret_health = MAX_TURRET_HEALTH
+	
+	globals = get_node("/root/Globals")
 
 
 func _physics_process(delta):
@@ -99,8 +102,10 @@ func _physics_process(delta):
 		visible = true 
 
 
-func fire_bullet():
+func create_sound(sound_name, position=null):										#using sounds, function required sound name, position is required if used in 3D
+	globals.play_sound(sound_name, false, position)									#plays the sound it recieves(sound_name), dont loop the audio (false), set the position of the audio (position)
 
+func fire_bullet():
 	if use_raycast == true:														#if raycasting is on, follow the player, if the ray is colliding get the body and if it can take damage, shoot it.
 		node_raycast.look_at(current_target.global_transform.origin + Vector3(0, PLAYER_HEIGHT, 0), Vector3(0, 1, 0))
 
@@ -110,9 +115,9 @@ func fire_bullet():
 			var body = node_raycast.get_collider()
 			if body.has_method("bullet_hit"):
 				body.bullet_hit(TURRET_DAMAGE_RAYCAST, node_raycast.get_collision_point())
-
 		ammo_in_turret -= 1
-		
+
+
 	else:																			#if ray casting is not on, get the bullet scene and use bullet to shoot
 		var clone = bullet_scene.instance()
 		var scene_root = get_tree().root.get_children()[0]
@@ -122,7 +127,7 @@ func fire_bullet():
 		clone.scale = Vector3(8, 8, 8)
 		clone.BULLET_DAMAGE = TURRET_DAMAGE_BULLET
 		clone.BULLET_SPEED = 60
-
+		create_sound("Pistol_shot", transform.origin)
 		ammo_in_turret -= 1
 
 	node_flash_one.visible = true
