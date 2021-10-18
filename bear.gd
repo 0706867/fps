@@ -52,5 +52,5 @@ func bullet_hit(damage, bullet_pos):															#allows the target to take da
 		Globals.enemy_amount -=1
 		collider.disabled = true
 		get_parent().rotation.z = deg2rad(-90)
-		get_parent().transform.origin.y = 3
+		get_parent().transform.origin.y = 6
 

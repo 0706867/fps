@@ -156,7 +156,7 @@ extents = Vector3( 1.85373, 1.33713, 3.24662 )
 extents = Vector3( 1, 2.17965, 0.672486 )
 
 [sub_resource type="SphereShape" id=8]
-radius = 53.142
+radius = 38.2678
 
 [sub_resource type="ParticlesMaterial" id=9]
 emission_shape = 1

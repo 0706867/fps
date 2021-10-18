@@ -43,13 +43,7 @@ adjustment_enabled = true
 script = ExtResource( 3 )
 
 [node name="Position3D" type="Position3D" parent="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36.992, 0, 6 )
-
-[node name="Position3D2" type="Position3D" parent="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -33.777, 0, 6 )
-
-[node name="Position3D3" type="Position3D" parent="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.247, 0, 6 )
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 48.8391, 23.1882, 6 )
 
 [node name="Testing_Area" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.48623, 4.3152, 0.143815 )
@@ -58,5 +52,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.48623, 4.3152, 0.143815 )
 environment = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -197.587, 0.868744, 3.80719 )
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -128.967, 27.7972, 12.5155 )
 endgame = "res://level_completed.tscn"
