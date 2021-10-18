@@ -403,14 +403,14 @@ func process_changing_weapons(delta):												#lets the player change weapons
 func fire_bullet():																	#lets the player fire bullets
 	if changing_weapon == true:														#if player is changing the weapon, dont fire
 		return
-	weapons[current_weapon_name].fire_weapon()										#fire the current weapon when this function is called
+	weapons[current_weapon_name].fire_weapon(transform.origin)										#fire the current weapon when this function is called
 
 func process_UI(delta):																#controls User Interface for the player
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":			#gets variables and converts them to strings, which lets the canvas display it 
 		# First line: Health, second line: Grenades, third line: enemies
 		UI_status_label.text = "HEALTH: " + str(health) + \
 			"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade]) + \
-			"\nEnemies: " + str(Globals.enemy_amount)
+			"\nEnemies Left: " + str(Globals.enemy_amount)
 	else:
 		var current_weapon = weapons[current_weapon_name]
 		# First line: Health, second line: weapon and ammo, third line: grenades, fourth line: enemies

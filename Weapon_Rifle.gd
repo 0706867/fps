@@ -15,7 +15,7 @@ var player_node = null
 func _ready():
 	pass
 
-func fire_weapon():
+func fire_weapon(position):
 	var ray = $Ray_Cast																#use ray casting and update it whenever weapon is fired
 	ray.force_raycast_update()
 
@@ -27,7 +27,7 @@ func fire_weapon():
 		elif body.has_method("bullet_hit"):
 			body.bullet_hit(DAMAGE, ray.global_transform)
 	ammo_in_weapon -= 1																#reduce ammo and play sound
-	player_node.create_sound("Rifle_shot", ray.global_transform.origin)
+	player_node.create_sound("Rifle_shot", position)
 
 func equip_weapon():
 	#same as Weapon_Pistol.gd, using rifle sounds and animations instead

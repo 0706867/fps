@@ -2,8 +2,8 @@ extends Spatial
 
 const DAMAGE = 10
 var ammo_in_weapon = 10
-var spare_ammo = 20
-const AMMO_IN_MAG = 10
+var spare_ammo = 50
+const AMMO_IN_MAG = 14
 const IDLE_ANIM_NAME = "Pistol_idle"
 const FIRE_ANIM_NAME = "Pistol_fire"
 const CAN_RELOAD = true
@@ -18,11 +18,11 @@ var player_node = null
 func _ready():
 	pass
 
-func fire_weapon():																	#the weapon is using projectiles so every bullet needs to be instanced separately to be tracked.
+func fire_weapon(position):																	#the weapon is using projectiles so every bullet needs to be instanced separately to be tracked.
 	var clone = bullet_scene.instance()
 	var scene_root = get_tree().root.get_children()[0]
 	scene_root.add_child(clone)
-	player_node.create_sound("Pistol_shot", player_node.transform.origin)
+	player_node.create_sound("Pistol_shot", position)
 
 #sets the location, size, damage, ammo size and the sound of the bullet
 	clone.global_transform = self.global_transform

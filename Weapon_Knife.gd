@@ -16,7 +16,7 @@ var player_node = null
 func _ready():
 	pass
 
-func fire_weapon():
+func fire_weapon(position):
 	var area = $Area
 	var bodies = area.get_overlapping_bodies()
 

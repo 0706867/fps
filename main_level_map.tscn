@@ -117,7 +117,6 @@ transform = Transform( 1, 1.72133e-23, 0, 1.81899e-12, 1, 4.54747e-13, -6.77626e
 shape = SubResource( 3 )
 
 [node name="Roof" type="Spatial" parent="Box"]
-visible = false
 
 [node name="Roof_plane" type="MeshInstance" parent="Box/Roof"]
 transform = Transform( -200, 1.50996e-07, 0, -3.01992e-05, -1, -7.54979e-06, -4.55995e-12, -1.50996e-07, 50, -150, 60, 1 )
@@ -154,7 +153,6 @@ material/0 = null
 shape = SubResource( 3 )
 
 [node name="Walls" type="Spatial" parent="Box"]
-visible = false
 
 [node name="Wall" type="MeshInstance" parent="Box/Walls"]
 transform = Transform( 250, 0, 0, 0, -1.62921e-07, -30, 0, 1, -4.88762e-06, -200, 30, -50 )
@@ -262,7 +260,6 @@ transform = Transform( 0.668964, 0, -1.8848, 0, 2, 0, -1.8848, 0, -0.668964, -40
 transform = Transform( 1.98546, 0, -0.24069, 0, 2, 0, -0.24069, 0, -1.98546, -354.126, 0.518414, 10.6501 )
 
 [node name="targets" type="Spatial" parent="Box"]
-visible = false
 
 [node name="Target_Whole" parent="Box/targets" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.0344, 45.7446, 37.4923 )
@@ -291,16 +288,34 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.433678, 34.3989, 37.887 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -354.137, 17.2719, 13.6782 )
 
 [node name="bear" parent="Box/Enemies" instance=ExtResource( 8 )]
-transform = Transform( -0.541839, 0, -1.92521, 0, 2, 0, 1.92521, 0, -0.541839, -93.5448, 1.13856, 27.8737 )
+transform = Transform( 0.0938665, 0, -1.9978, 0, 2, 0, 1.9978, 0, 0.0938665, -164.253, 0.8, -3.58955 )
 
 [node name="bear2" parent="Box/Enemies" instance=ExtResource( 8 )]
-transform = Transform( 1.96962, 0, 0.347296, 0, 2, 0, -0.347296, 0, 1.96962, -104.682, 1.4064, 28.6361 )
+transform = Transform( 1.96962, 0, 0.347296, 0, 2, 0, -0.347296, 0, 1.96962, -53.6801, 0.8, 28.6361 )
 
 [node name="bear3" parent="Box/Enemies" instance=ExtResource( 8 )]
-transform = Transform( 0.371436, 0, 1.96521, 0, 2, 0, -1.96521, 0, 0.371436, -70.6617, 0.257091, -28.4724 )
+transform = Transform( -0.161685, 0, -1.99346, 0, 2, 0, 1.99346, 0, -0.161685, -381.881, 0.8, 38.2722 )
 
 [node name="bear4" parent="Box/Enemies" instance=ExtResource( 8 )]
-transform = Transform( -1.99532, 0, -0.136797, 0, 2, 0, 0.136797, 0, -1.99532, -112.838, 0.257091, -28.4724 )
+transform = Transform( -1.99532, 0, -0.136797, 0, 2, 0, 0.136797, 0, -1.99532, -291.725, 0.8, -32.7102 )
+
+[node name="bear5" parent="Box/Enemies" instance=ExtResource( 8 )]
+transform = Transform( -1.98576, 0, -0.23823, 0, 2, 0, 0.23823, 0, -1.98576, -438.877, 0.8, 60.3653 )
+
+[node name="bear6" parent="Box/Enemies" instance=ExtResource( 8 )]
+transform = Transform( -1.98576, 0, -0.23823, 0, 2, 0, 0.23823, 0, -1.98576, -388.972, 0.8, 60.3653 )
+
+[node name="bear7" parent="Box/Enemies" instance=ExtResource( 8 )]
+transform = Transform( 1.97549, 0, -0.312145, 0, 2, 0, 0.312145, 0, 1.97549, -394.317, 0.8, 119.628 )
+
+[node name="bear8" parent="Box/Enemies" instance=ExtResource( 8 )]
+transform = Transform( 1.99959, 0, -0.0408722, 0, 2, 0, 0.0408722, 0, 1.99959, -427.917, 0.8, 317.025 )
+
+[node name="bear9" parent="Box/Enemies" instance=ExtResource( 8 )]
+transform = Transform( -0.0869605, 0, 1.99811, 0, 2, 0, -1.99811, 0, -0.0869605, -335.305, 0.8, 317.025 )
+
+[node name="bear10" parent="Box/Enemies" instance=ExtResource( 8 )]
+transform = Transform( 1.99671, 0, -0.114745, 0, 2, 0, 0.114745, 0, 1.99671, -247.305, 0.8, 317.025 )
 
 [node name="Pickups" type="Spatial" parent="Box"]
 
