@@ -5,10 +5,16 @@ var hit = false																		#has the bear been hit
 var collider																		#bears collision shape
 var timer 																			#local timer used for how long bear walks for
 var turn = false																	#has the bear turned
+var current_target = null
+var vision
+var raycast
 
 func _ready():
 	Globals.enemy_amount +=1														#adds to total enemy amount in global script
 	collider = $CollisionShape														#connect bears collisionshape to the variable
+	vision = $Area/sphere
+	raycast = $Area/Raycast
+	$Area.connect("body_entered", self, "body_entered_vision")
 	timer = 0																		#reset the timer
 	if rad2deg((get_parent().rotation.y)) >= 315 and rad2deg((get_parent().rotation.y)) <= 360 or rad2deg((get_parent().rotation.y)) <= 45 and rad2deg((get_parent().rotation.y)) >= 0 or rad2deg((get_parent().rotation.y)) >= -45 and rad2deg((get_parent().rotation.y)) <= 0 or rad2deg((get_parent().rotation.y)) <= -315 and rad2deg((get_parent().rotation.y)) >= 0:
 		get_parent().rotation.y = deg2rad(1)											#set face to 0 degrees or facing right
@@ -45,7 +51,6 @@ func move(delta):
 				timer = 0																#reset the timer
 				turn = false															#make turn false, whcih enables this loop to occur
 
-
 func bullet_hit(damage, bullet_pos):															#allows the target to take damage
 	hit = true																		#enemy is hit
 	if hit:																	#if enemy is hit, lower the enemy amount
@@ -54,3 +59,6 @@ func bullet_hit(damage, bullet_pos):															#allows the target to take da
 		get_parent().rotation.z = deg2rad(-90)
 		get_parent().transform.origin.y = 6
 
+func body_entered_vision(body, delta):
+	if body is KinematicBody:
+		current_target = body
