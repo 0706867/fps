@@ -113,6 +113,7 @@ func fire_bullet():
 
 		if node_raycast.is_colliding():
 			var body = node_raycast.get_collider()
+			print(body.get_parent().get_name())
 			if body.has_method("bullet_hit"):
 				body.bullet_hit(TURRET_DAMAGE_RAYCAST, node_raycast.get_collision_point())
 		ammo_in_turret -= 1
@@ -124,9 +125,9 @@ func fire_bullet():
 		scene_root.add_child(clone)
 
 		clone.global_transform = $Head/Barrel_End.global_transform
-		clone.scale = Vector3(8, 8, 8)
+		clone.scale = Vector3(10, 10, 10)											#bullet from the turret are bigger to prevent players from walking past them
 		clone.BULLET_DAMAGE = TURRET_DAMAGE_BULLET
-		clone.BULLET_SPEED = 60
+		clone.BULLET_SPEED = 550													#so the player can not dodge them while walking
 		create_sound("Pistol_shot", transform.origin)
 		ammo_in_turret -= 1
 

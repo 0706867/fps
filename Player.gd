@@ -556,7 +556,7 @@ func process_respawn(delta):														#lets the player respawn
 
 																					#if the respawn time is 0, set the location as one of the spawning locations
 		if dead_time <= 0:
-			global_transform.origin = globals.get_respawn_position()
+			global_transform.origin =.get_respawn_position()
 
 																					#enable body colliders
 			$Body_CollisionShape.disabled = false

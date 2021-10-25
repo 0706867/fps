@@ -14,7 +14,6 @@ func _ready():
 	collider = $CollisionShape														#connect bears collisionshape to the variable
 	vision = $Area/sphere
 	raycast = $Area/Raycast
-	$Area.connect("body_entered", self, "body_entered_vision")
 	timer = 0																		#reset the timer
 	if rad2deg((get_parent().rotation.y)) >= 315 and rad2deg((get_parent().rotation.y)) <= 360 or rad2deg((get_parent().rotation.y)) <= 45 and rad2deg((get_parent().rotation.y)) >= 0 or rad2deg((get_parent().rotation.y)) >= -45 and rad2deg((get_parent().rotation.y)) <= 0 or rad2deg((get_parent().rotation.y)) <= -315 and rad2deg((get_parent().rotation.y)) >= 0:
 		get_parent().rotation.y = deg2rad(1)											#set face to 0 degrees or facing right
@@ -51,14 +50,11 @@ func move(delta):
 				timer = 0																#reset the timer
 				turn = false															#make turn false, whcih enables this loop to occur
 
-func bullet_hit(damage, bullet_pos):															#allows the target to take damage
+func bullet_hit(damage, bullet_pos):												#allows the target to take damage
 	hit = true																		#enemy is hit
-	if hit:																	#if enemy is hit, lower the enemy amount
+	if hit:																			#if enemy is hit, lower the enemy amount
 		Globals.enemy_amount -=1
-		collider.disabled = true
-		get_parent().rotation.z = deg2rad(-90)
-		get_parent().transform.origin.y = 6
-
-func body_entered_vision(body, delta):
-	if body is KinematicBody:
-		current_target = body
+		collider.disabled = true													#the player can not collide with the bear if its dead
+		get_parent().rotation.z = deg2rad(-90)										#rotate the local z axis to the bear looks dead (lying on the ground)
+		get_parent().transform.origin.y = 6											#move the bear up when it dies to avoid unusual clipping of meshes
+		Globals.score +=100															#add to the player score

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://level_completed.gd" type="Script" id=1]
 [ext_resource path="res://assets/Titillium-Regular.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://score.gd" type="Script" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -11,6 +12,10 @@ extra_spacing_top = 5
 extra_spacing_bottom = 5
 extra_spacing_char = 3
 extra_spacing_space = 6
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 33
 font_data = ExtResource( 2 )
 
 [node name="Control" type="Control"]
@@ -33,13 +38,26 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="end"]
-margin_left = 426.0
-margin_top = 310.0
-margin_right = 940.0
-margin_bottom = 391.0
+margin_left = 414.686
+margin_top = 266.159
+margin_right = 928.686
+margin_bottom = 347.159
 custom_fonts/font = SubResource( 1 )
 text = "Misson Completed"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="end"]
+margin_left = 415.929
+margin_top = 333.899
+margin_right = 929.929
+margin_bottom = 373.899
+custom_fonts/font = SubResource( 2 )
+text = "Score "
+align = 1
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -27,13 +27,17 @@ var audio_clips = {																	#attach names to audio clips for easier acce
 const SIMPLE_AUDIO_PLAYER_SCENE = preload("res://Simple_Audio_Player.tscn")
 var created_audio = []
 
-#enemies 
+#amount of enemies alive 
 var enemy_amount = 0
+
+#playerscore
+var score = 0
 
 func _ready():
 	canvas_layer = CanvasLayer.new()												#create a new canvas
 	add_child(canvas_layer)															#puts the new canvas on screen
 	randomize()
+	score = 0
 
 func load_new_scene(new_scene_path):												#defaults for loading new scenes
 	get_tree().change_scene(new_scene_path)											#loads requested scene
@@ -43,6 +47,7 @@ func load_new_scene(new_scene_path):												#defaults for loading new scenes
 		if (sound != null):
 			sound.queue_free()
 	created_audio.clear()
+
 
 func set_debug_display(display_on):
 	if display_on == false:															#dont show debug display
