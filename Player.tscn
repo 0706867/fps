@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://assets/Colors.material" type="Material" id=1]
 [ext_resource path="res://assets/Emission.material" type="Material" id=2]
@@ -3885,7 +3885,9 @@ extents = Vector3( 1.5, 2, 1.5 )
 [sub_resource type="StyleBoxFlat" id=24]
 bg_color = Color( 0.158587, 0.106689, 0.179688, 1 )
 border_color = Color( 0.277183, 0.201141, 0.304688, 1 )
-corner_radius_top_right = 70
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
 corner_detail = 3
 anti_aliasing = false
 
@@ -3893,6 +3895,15 @@ anti_aliasing = false
 size = 32
 use_filter = true
 font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxFlat" id=26]
+bg_color = Color( 0.158587, 0.106689, 0.179688, 1 )
+border_color = Color( 0.277183, 0.201141, 0.304688, 1 )
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 3
+anti_aliasing = false
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 9 )
@@ -4265,6 +4276,43 @@ margin_left = 10.0
 margin_top = 20.0
 margin_right = 380.0
 margin_bottom = 109.0
+custom_fonts/font = SubResource( 25 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Health: 100
+Ammo: 000/000
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel2" type="Panel" parent="HUD"]
+modulate = Color( 1, 1, 1, 0.705882 )
+margin_top = 560.0
+margin_right = 370.0
+margin_bottom = 720.0
+custom_styles/panel = SubResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel_border" type="Panel" parent="HUD/Panel2"]
+modulate = Color( 0.679688, 0.679688, 0.679688, 1 )
+show_behind_parent = true
+margin_left = 898.0
+margin_top = -10.0
+margin_right = 1274.0
+margin_bottom = 160.0
+custom_styles/panel = SubResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gun_label" type="Label" parent="HUD/Panel2"]
+self_modulate = Color( 1, 1, 1, 0.705882 )
+margin_left = 916.486
+margin_top = 20.0
+margin_right = 1286.49
+margin_bottom = 122.0
 custom_fonts/font = SubResource( 25 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Health: 100

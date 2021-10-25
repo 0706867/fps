@@ -25,6 +25,7 @@ var changing_weapon = false															#is the player changing weapons
 var changing_weapon_name = "UNARMED"												#name of the weapon changed to
 var health = 100																	# player health
 var UI_status_label																	#is the UI displaying?
+var UI_enemy_label																	#shows details related to the enemy
 var simple_audio_player = preload("res://Simple_Audio_Player.tscn")					#loads audioplayer
 var JOYPAD_SENSITIVITY = 2															#joypad sensitivity
 const JOYPAD_DEADZONE = 0.15														#joypad deadzone to stop jitters 
@@ -77,6 +78,7 @@ func _ready():																		#function called when the project starts
 	changing_weapon_name = "UNARMED"
 #assigns names ot nodes
 	UI_status_label = $HUD/Panel/Gun_label
+	UI_enemy_label = $HUD/Panel2/Gun_label
 	flashlight = $Rotation_Helper/Flashlight
 #gets globals script
 	globals = get_node("/root/Globals")
@@ -405,19 +407,22 @@ func fire_bullet():																	#lets the player fire bullets
 		return
 	weapons[current_weapon_name].fire_weapon(transform.origin)										#fire the current weapon when this function is called
 
+
 func process_UI(delta):																#controls User Interface for the player
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":			#gets variables and converts them to strings, which lets the canvas display it 
 		# First line: Health, second line: Grenades, third line: enemies
 		UI_status_label.text = "HEALTH: " + str(health) + \
-			"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade]) + \
-			"\nEnemies Left: " + str(Globals.enemy_amount)
+			"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade]) 
 	else:
 		var current_weapon = weapons[current_weapon_name]
 		# First line: Health, second line: weapon and ammo, third line: grenades, fourth line: enemies
 		UI_status_label.text = "HEALTH: " + str(health) + \
 			"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo) + \
-			"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade]) + \
-			"\nEnemies: " + str(Globals.enemy_amount)
+			"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
+	
+	UI_enemy_label.text = "Enemies Left: " + str(Globals.enemy_amount) + \
+							"\nScore: " + str(Globals.score)
+
 
 func process_reloading(delta):														#lets the player reload
 	if reloading_weapon == true:													#if weapon is able to reload
@@ -556,7 +561,7 @@ func process_respawn(delta):														#lets the player respawn
 
 																					#if the respawn time is 0, set the location as one of the spawning locations
 		if dead_time <= 0:
-			global_transform.origin =.get_respawn_position()
+			global_transform.origin = Globals.get_respawn_position()
 
 																					#enable body colliders
 			$Body_CollisionShape.disabled = false

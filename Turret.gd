@@ -8,7 +8,7 @@ const TURRET_DAMAGE_RAYCAST = 5
 const FLASH_TIME = 0.1
 var flash_timer = 0
 
-const FIRE_TIME = 0.8
+const FIRE_TIME = 0.2
 var fire_timer = 0
 
 var node_turret_head = null
@@ -166,5 +166,4 @@ func bullet_hit(damage, bullet_hit_pos):										#lower health when the turret 
 	if turret_health <= 0:
 		smoke_particles.emitting = true
 		destroyed_timer = DESTROYED_TIME
-		visible = false
 

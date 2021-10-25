@@ -1,6 +1,6 @@
 extends Spatial
 
-const DAMAGE = 20
+const DAMAGE = 8
 const IDLE_ANIM_NAME = "Rifle_idle"
 const FIRE_ANIM_NAME = "Rifle_fire"
 var ammo_in_weapon = 50

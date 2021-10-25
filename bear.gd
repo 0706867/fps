@@ -1,6 +1,6 @@
 extends KinematicBody
 
-var speed = 30																		#bear speed
+var speed = 25																		#bear speed
 var hit = false																		#has the bear been hit
 var collider																		#bears collision shape
 var timer 																			#local timer used for how long bear walks for
