@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/9convert.com - Rick Astley Never Gonna Give You Up Official Music Video.wav-0fc7a61a6e58e7a4eff1de49e75155ec.sample"
+
+[deps]
+
+source_file="res://sounds/9convert.com - Rick Astley Never Gonna Give You Up Official Music Video.wav"
+dest_files=[ "res://.import/9convert.com - Rick Astley Never Gonna Give You Up Official Music Video.wav-0fc7a61a6e58e7a4eff1de49e75155ec.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
