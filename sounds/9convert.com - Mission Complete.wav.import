@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/9convert.com - Mission Complete.wav-b26c1a9682e22806a41a174ac9eb14f2.sample"
+
+[deps]
+
+source_file="res://sounds/9convert.com - Mission Complete.wav"
+dest_files=[ "res://.import/9convert.com - Mission Complete.wav-b26c1a9682e22806a41a174ac9eb14f2.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

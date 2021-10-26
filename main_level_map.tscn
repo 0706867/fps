@@ -268,7 +268,7 @@ transform = Transform( 0.187733, 0, -3.99559, 0, 4, 0, 3.99559, 0, 0.187733, -2.
 transform = Transform( 0.0721781, 0, 3.99935, 0, 4, 0, -3.99935, 0, 0.0721781, -103.611, 0.8, 97.2732 )
 
 [node name="bear4" parent="Box/Enemies" instance=ExtResource( 8 )]
-transform = Transform( 6.45086e-07, -3.95951, -0.567682, -4, -6.51683e-07, -7.10543e-15, -9.24871e-08, 0.567682, -3.95951, -109.323, 6, -5.534 )
+transform = Transform( -3.95951, 0, -0.567682, 0, 4, 0, 0.567682, 0, -3.95951, -109.323, 4, -5.534 )
 
 [node name="bear5" parent="Box/Enemies" instance=ExtResource( 8 )]
 transform = Transform( -3.95951, 0, -0.567687, 0, 4, 0, 0.567687, 0, -3.95951, 33.3099, 0.8, 133.1 )

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Man Gasping FREE Sound Effect #1.wav-9a97992cb28efc7027f2aafd7d656e26.sample"
+
+[deps]
+
+source_file="res://sounds/Man Gasping FREE Sound Effect #1.wav"
+dest_files=[ "res://.import/Man Gasping FREE Sound Effect #1.wav-9a97992cb28efc7027f2aafd7d656e26.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

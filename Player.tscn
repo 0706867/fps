@@ -4158,7 +4158,7 @@ transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.229332, -1.17163, 0.0242715
 input_ray_pickable = false
 angular_damp = 1.0
 
-[node name="Collision_Shape" type="CollisionShape" parent="Rotation_Helper/Gun_Fire_Points/Knife_Point/Area"]
+[node name="CollisionShape" type="CollisionShape" parent="Rotation_Helper/Gun_Fire_Points/Knife_Point/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.300034 )
 shape = SubResource( 22 )
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://level_completed.gd" type="Script" id=1]
 [ext_resource path="res://assets/Titillium-Regular.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://score.gd" type="Script" id=3]
+[ext_resource path="res://sounds/9convert.com - Mission Complete.wav" type="AudioStream" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -81,3 +82,8 @@ text = "Main Menu"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 664.68, 366.281 )
+stream = ExtResource( 4 )
+autoplay = true

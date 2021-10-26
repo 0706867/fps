@@ -54,3 +54,4 @@ func bullet_hit(damage, bullet_pos):												#allows the target to take damag
 		get_parent().rotation.z = deg2rad(-90)										#rotate the local z axis to the bear looks dead (lying on the ground)
 		get_parent().transform.origin.y = 6											#move the bear up when it dies to avoid unusual clipping of meshes
 		Globals.score +=100															#add to the player score
+		Globals.play_sound("enemy_death", false, get_parent().transform.origin)		#play the enemy death noise, dont loop, play it at the body

@@ -22,7 +22,8 @@ var audio_clips = {																	#attach names to audio clips for easier acce
 	"Pistol_shot": preload("res://sounds/gun_revolver_pistol_shot_04.wav"),
 	"Rifle_shot": preload("res://sounds/gun_rifle_sniper_shot_01.wav"),
 	"Gun_cock": preload("res://sounds/gun_semi_auto_rifle_cock_02.wav"),
-	"Footstep" : preload("res://sounds/footstep.wav")
+	"Footstep" : preload("res://sounds/footstep.wav"),
+	"enemy_death" : preload("res://sounds/Man Gasping FREE Sound Effect #1.wav")
 }
 
 const SIMPLE_AUDIO_PLAYER_SCENE = preload("res://Simple_Audio_Player.tscn")
