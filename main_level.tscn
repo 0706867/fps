@@ -41,12 +41,12 @@ glow_blend_mode = 0
 glow_bicubic_upscale = true
 adjustment_enabled = true
 
-[sub_resource type="Curve" id=8]
+[sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.980392, 1 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=4]
 width = 32
-curve = SubResource( 8 )
+curve = SubResource( 3 )
 
 [sub_resource type="ParticlesMaterial" id=5]
 lifetime_randomness = 0.5
@@ -80,7 +80,7 @@ script = ExtResource( 4 )
 script = ExtResource( 3 )
 
 [node name="Position3D" type="Position3D" parent="Spatial"]
-transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 48.8391, 23.1882, 6 )
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 39.7204, 23.1882, 6 )
 
 [node name="Testing_Area" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.33892, 4.3152, -0.531982 )
@@ -92,9 +92,7 @@ environment = SubResource( 2 )
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -128.967, 27.7972, 12.5155 )
 endgame = "res://level_completed.tscn"
 
-[node name="Spatial2" type="Spatial" parent="."]
-
-[node name="Particles" type="Particles" parent="Spatial2"]
+[node name="Particles" type="Particles" parent="."]
 transform = Transform( 250, 0, 0, 0, 1, 0, 0, 0, 200, -191.722, 22.2744, 157.085 )
 amount = 256
 speed_scale = 0.3

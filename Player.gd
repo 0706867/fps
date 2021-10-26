@@ -168,12 +168,24 @@ func process_input(delta):															#processes input types
 
 	if Input.is_action_pressed("movement_forward"):									#add to y if forward is pressed
 		input_movement_vector.y += 1
+		if $Timer.time_left <= 1:													#timer for how often the audio will play
+			create_sound("Footstep", transform.origin)
+			$Timer.start(1.25)
 	if Input.is_action_pressed("movement_backward"):								#subtract from  y if backwards is pressed
 		input_movement_vector.y -= 1
+		if $Timer.time_left <= 1:													#timer for how often the audio will play
+			create_sound("Footstep", transform.origin)
+			$Timer.start(1.25)
 	if Input.is_action_pressed("movement_left"):									#subtract from  x if left  is pressed
 		input_movement_vector.x -= 1
+		if $Timer.time_left <= 1:													#timer for how often the audio will play
+			create_sound("Footstep", transform.origin)
+			$Timer.start(1.25)
 	if Input.is_action_pressed("movement_right"):									#add to x if right is pressed
 		input_movement_vector.x += 1
+		if $Timer.time_left <= 1:													#timer for how often the audio will play
+			create_sound("Footstep", transform.origin)
+			$Timer.start(1.25)
 	# Add joypad input if one is present (changes depending on the function provided)
 	if Input.get_connected_joypads().size() > 0:
 

@@ -12,8 +12,6 @@ var raycast
 func _ready():
 	Globals.enemy_amount +=1														#adds to total enemy amount in global script
 	collider = $CollisionShape														#connect bears collisionshape to the variable
-	vision = $Area/sphere
-	raycast = $Area/Raycast
 	timer = 0																		#reset the timer
 	if rad2deg((get_parent().rotation.y)) >= 315 and rad2deg((get_parent().rotation.y)) <= 360 or rad2deg((get_parent().rotation.y)) <= 45 and rad2deg((get_parent().rotation.y)) >= 0 or rad2deg((get_parent().rotation.y)) >= -45 and rad2deg((get_parent().rotation.y)) <= 0 or rad2deg((get_parent().rotation.y)) <= -315 and rad2deg((get_parent().rotation.y)) >= 0:
 		get_parent().rotation.y = deg2rad(1)											#set face to 0 degrees or facing right
