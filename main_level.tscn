@@ -22,8 +22,11 @@ sun_energy = 0.0
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 1 )
-ambient_light_color = Color( 0.172549, 0.168627, 0.239216, 1 )
+ambient_light_color = Color( 0.27451, 0.270588, 0.337255, 1 )
 ambient_light_sky_contribution = 0.6
+fog_color = Color( 0.133333, 0.133333, 0.133333, 1 )
+fog_sun_color = Color( 0, 0, 0, 1 )
+fog_transmit_enabled = true
 fog_height_min = 0.0
 fog_height_max = 100.0
 tonemap_mode = 3
