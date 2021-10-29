@@ -11,13 +11,19 @@ func _ready():
 	Globals.enemy_amount +=1														#adds to total enemy amount in global script
 	collider = $CollisionShape														#connect bears collisionshape to the variable
 	timer = 0																		#reset the timer
-	if rad2deg((get_parent().rotation.y)) >= 315 and rad2deg((get_parent().rotation.y)) <= 360 or rad2deg((get_parent().rotation.y)) <= 45 and rad2deg((get_parent().rotation.y)) >= 0 or rad2deg((get_parent().rotation.y)) >= -45 and rad2deg((get_parent().rotation.y)) <= 0 or rad2deg((get_parent().rotation.y)) <= -315 and rad2deg((get_parent().rotation.y)) >= 0:
+	if rad2deg((get_parent().rotation.y)) >= 315 and rad2deg((get_parent().rotation.y)) <= 360 or +\
+	rad2deg((get_parent().rotation.y)) <= 45 and rad2deg((get_parent().rotation.y)) >= 0 or +\
+	rad2deg((get_parent().rotation.y)) >= -45 and rad2deg((get_parent().rotation.y)) <= 0 or +\
+	rad2deg((get_parent().rotation.y)) <= -315 and rad2deg((get_parent().rotation.y)) >= 0:
 		get_parent().rotation.y = deg2rad(1)											#set face to 0 degrees or facing right
-	elif rad2deg((get_parent().rotation.y)) >= 135 and rad2deg((get_parent().rotation.y)) <= 225 or rad2deg((get_parent().rotation.y)) <= -135 and rad2deg((get_parent().rotation.y)) >= -225:
+	elif rad2deg((get_parent().rotation.y)) >= 135 and rad2deg((get_parent().rotation.y)) <= 225 or +\
+	rad2deg((get_parent().rotation.y)) <= -135 and rad2deg((get_parent().rotation.y)) >= -225:
 		get_parent().rotation.y = deg2rad(180)											#set face to 180 degrees or facing left
-	elif rad2deg((get_parent().rotation.y)) >= 45 and rad2deg((get_parent().rotation.y)) <= 135 or rad2deg((get_parent().rotation.y)) <= -45 and rad2deg((get_parent().rotation.y)) >= -135:
+	elif rad2deg((get_parent().rotation.y)) >= 45 and rad2deg((get_parent().rotation.y)) <= 135 or +\
+	rad2deg((get_parent().rotation.y)) <= -45 and rad2deg((get_parent().rotation.y)) >= -135:
 		get_parent().rotation.y = deg2rad(90)											#set face to 90 degrees or facing UP
-	elif rad2deg((get_parent().rotation.y)) >= 225 and rad2deg((get_parent().rotation.y)) <= 315 or rad2deg((get_parent().rotation.y)) <= -225 and rad2deg((get_parent().rotation.y)) >= -315:
+	elif rad2deg((get_parent().rotation.y)) >= 225 and rad2deg((get_parent().rotation.y)) <= 315 or +\
+	rad2deg((get_parent().rotation.y)) <= -225 and rad2deg((get_parent().rotation.y)) >= -315:
 		get_parent().rotation.y = deg2rad(270)											#set face to 270 degrees or facing down
 
 func _process(delta):
